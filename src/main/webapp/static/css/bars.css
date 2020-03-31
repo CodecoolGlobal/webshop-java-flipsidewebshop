@@ -12,7 +12,7 @@
 }
 
 /* The sidebar links */
-.sidebar a, p, .dropdown-btn {
+.sidebar a, p, .dropdown-btn, .dropdown {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 20px;
@@ -37,7 +37,7 @@
 }
 
 
-.category-sidebar {
+.category-sidebar, .supplier-sidebar {
     display: none;
     background-color: #262626;
     padding-left: 8px;
