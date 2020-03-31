@@ -43,18 +43,18 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(snowboard);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Bruce Lee", 69-95, "USD", "Fantastic price. You can truly skate with the power of Bruce Lee", skateboard, DGK));
+        productDataStore.add(new Product("Bruce Lee", 69.95f, "USD", "Fantastic price. You can truly skate with the power of Bruce Lee", skateboard, DGK));
         productDataStore.add(new Product("Zen", 57, "USD", "May the Zen and balance be with you", skateboard, DGK));
         productDataStore.add(new Product("Naruto", 89, "USD", "With this, you can be the real Ninja on the streets", skateboard, rodriguez));
-        productDataStore.add(new Product("Enjoi", 54-95, "USD", "Ride on the streets in a peaceful way", skateboard, enjoi));
-        productDataStore.add(new Product("Bloom", 54-95, "USD", "Ride on the streets in a peaceful way", skateboard, DGK));
-        productDataStore.add(new Product("Yin Yang", 54-95, "USD", "Ride on the streets with a balanced soul", skateboard, DGK));
-        productDataStore.add(new Product("Ghetto Bears", 54-95, "USD", "Bring the beasts with you", skateboard, DGK));
+        productDataStore.add(new Product("Enjoi", 54.95f, "USD", "Ride on the streets in a peaceful way", skateboard, enjoi));
+        productDataStore.add(new Product("Bloom", 54.95f, "USD", "Flowers will follow you with this board", skateboard, DGK));
+        productDataStore.add(new Product("Yin Yang", 54.95f, "USD", "Ride on the streets with a balanced soul", skateboard, DGK));
+        productDataStore.add(new Product("Ghetto Bears", 54.95f, "USD", "Bring the beasts with you", skateboard, DGK));
 
 
         productDataStore.add(new Product("Custom", 300, "USD", "All times classic one-quiver all-mountain camber board that fits every rider.", snowboard, burton));
         productDataStore.add(new Product("Flagship", 354, "USD", "This snowboard was created for exactly one reason: to set new freeride standards!", snowboard, jones));
-        productDataStore.add(new Product("Dream Catcher", 287, "USD", "This board is designed to shred the entire mountain in the most playful way possible, without sacrificing high-speed, line-bombing stability. Ideal for all-mountain, freeriding and freestyle.", snowboard, jones));
+        productDataStore.add(new Product("Dream Catcher", 287, "USD", "This board is designed to shred the entire mountain in the most playful way possible.", snowboard, jones));
         System.out.println(productCategoryDataStore.getAll());
     }
 }
