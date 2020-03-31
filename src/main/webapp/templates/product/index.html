@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bars.css">
 
     <script src="/static/js/main.js" defer></script>
+    <script src="/static/js/cart.js" defer></script>
 </head>
 
 <body>
@@ -84,7 +85,7 @@
 
 <div class="container" th:each="category : ${categories}" th:data-catid="${category.id}">
     <div class="card" th:data-id="${category.id}">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong class="category-title" th:text="${category.name}">Category Title</strong>
     </div>
 
     <div id="products" class="row">
@@ -101,8 +102,8 @@
                     <div class="card-text price">
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
-                    <div class="card-text cart-button">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                    <div class="card-text cart-button" th:data-id="${prod.getId()}">
+                        <a class="btn btn-success">Add to cart</a>
                     </div>
                 </div>
             </div>
