@@ -27,18 +27,39 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/bars.css">
+
+    <script src="/static/js/category.js" defer></script>
 </head>
 
 <body>
-
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div id="navbar">
+    <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
+    <span>Contact</span>
 </div>
 
-<div class="container" th:each="category : ${categories}">
-    <div class="card">
-        <strong th:text="${category.name}" th:data-id="${category.id}">Category Title</strong>
+<div class="jumbotron text-center">
+    <h1>FlipSide</h1>
+</div>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <p>About</p>
+    <p class="all-product">See all products</p>
+    <p class="dropdown-btn">Categories<i class="fa fa-caret-down"></i></p>
+    <div class="category-sidebar">
+        <p class="categories" th:each="category : ${categories}" th:data-catid="${category.id}" th:text="${category.name}">Category
+            Name
+        </p>
+    </div>
+</div>
+
+<div class="container" th:each="category : ${categories}" th:data-catid="${category.id}">
+    <div class="card" th:data-id="${category.id}">
+        <strong th:text="${category.name}">Category Title</strong>
     </div>
 
     <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}">
