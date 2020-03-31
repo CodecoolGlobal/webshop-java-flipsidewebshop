@@ -8,8 +8,7 @@ function productsOnlyByCLickedCat() {
             if (cardId != containerId) {
                 card.addEventListener('click', function () {
                         container.classList.add('hidden');
-                    }
-                )
+                    })
             } else {
                 container.classList.remove('hidden');
             }

@@ -1,6 +1,7 @@
 .glyphicon {
     margin-right:5px;
 }
+
 .thumbnail
 {
     margin-bottom: 20px;
@@ -67,8 +68,4 @@
 
 .hidden {
     display: none;
-}
-
-.shown {
-
 }
