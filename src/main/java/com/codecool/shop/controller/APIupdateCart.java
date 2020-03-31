@@ -23,8 +23,6 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/api/update-cart"})
 public class APIaddItemToCart extends HttpServlet {
 
-    private Object ArrayList;
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         boolean successOfUpdate;
@@ -36,19 +34,24 @@ public class APIaddItemToCart extends HttpServlet {
         ProductCategoryDao allProductCategories = ProductCategoryDaoMem.getInstance();
 
         Customer customer = new Customer();
-        List itemsInCart = customer.getcartItems();
+        List<Item> itemsInCart = customer.getcartItems();
         Product currentProduct = allProducts.find(id);
-        for (Object item : itemsInCart) {
-            Item currentItem = (Item) item;
-            if (currentItem.getProduct() == currentProduct) {
-                if (operation.equals("add")) {
-                    successOfUpdate = add((Item) item);
-                } else if (operation.equals("remove")) {
-                    successOfUpdate = remove((Item) item);
-                } else if (operation.equals("update")) {
-                    successOfUpdate = update((Item) item, quantity);
-                } else {
-                    successOfUpdate = false;
+        for (Item item : itemsInCart) {
+            if (item.getProduct() == currentProduct) {
+                int currentQuantity = item.getQuantity();
+                switch (operation) {
+                    case "add":
+                        successOfUpdate = update(customer, currentProduct, currentQuantity + 1);
+                        break;
+                    case "remove":
+                        successOfUpdate = update(customer, currentProduct, currentQuantity - 1);
+                        break;
+                    case "update":
+                        successOfUpdate = update(customer, currentProduct, quantity);
+                        break;
+                    default:
+                        successOfUpdate = false;
+                        break;
                 }
             }
         }
@@ -63,27 +66,16 @@ public class APIaddItemToCart extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    private boolean add(Item item) {
-        int currentQuantity = item.getQuantity();
-        item.setQuantity(currentQuantity + 1);
-        return true;
-    }
-
-    private boolean remove(Item item) {
-        int currentQuantity = item.getQuantity();
-        if (currentQuantity > 0) {
-            item.setQuantity(currentQuantity - 1);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean update(Item item, int newAmount) {
+    private boolean update(Customer customer, Product product, int newAmount) {
         if (newAmount > 0) {
-            item.setQuantity(newAmount);
+            customer.updateCart(product, newAmount);
             return true;
+        } else if (newAmount == 0) {
+            customer.removeItemFromCart(product);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
 }
