@@ -1,5 +1,5 @@
 function productsOnlyByCLickedCat() {
-    let containers = document.querySelectorAll('.container');
+    let containers = document.querySelectorAll('.category-title');
     let cards = document.querySelectorAll('.card');
     for (let container of containers) {
         let containerId = container.dataset.catid;
@@ -37,7 +37,7 @@ function getProductsFromSideBar() {
 
 function getAllProducts() {
     let seeAll = document.querySelector('.all-product');
-    let containers = document.querySelectorAll('.container');
+    let containers = document.querySelectorAll('.category-title');
     seeAll.addEventListener('click', function () {
         for (let con of containers) {
             con.classList.remove('hidden');
