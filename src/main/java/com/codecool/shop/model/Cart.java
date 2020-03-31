@@ -25,6 +25,10 @@ public class Cart {
 
     }
 
+    public List<Item> getShoppingCart(){
+        return shoppingCart;
+    }
+
     private boolean inCart(Product product){
         return shoppingCart.stream().anyMatch(item -> product.equals(item.getProduct()));
     }
