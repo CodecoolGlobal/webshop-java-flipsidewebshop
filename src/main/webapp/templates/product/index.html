@@ -40,8 +40,12 @@
     <div class="card">
         <strong th:text="${category.name}" th:data-id="${category.id}">Category Title</strong>
     </div>
-    <div class="card supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}">
-        <strong th:text="${supplier.name}" th:data-id="${supplier.id}">Supplier Name</strong>
+
+    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}">
+        <div class="card">
+            <strong th:text="${supplier.name}" th:data-id="${supplier.id}">Supplier Name</strong>
+        </div>
+
         <div id="products" class="row">
             <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}"
                  th:if="${category.getId() == prod.getProductCategory().getId()}">
@@ -64,7 +68,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>
 
