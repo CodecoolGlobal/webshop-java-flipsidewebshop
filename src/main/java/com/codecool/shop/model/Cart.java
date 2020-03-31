@@ -29,7 +29,7 @@ public class Cart {
         return shoppingCart;
     }
 
-    private boolean inCart(Product product){
+    public boolean inCart(Product product){
         return shoppingCart.stream().anyMatch(item -> product.equals(item.getProduct()));
     }
 
