@@ -12,18 +12,35 @@
 }
 
 /* The sidebar links */
-.sidebar a, p {
+.sidebar a, p, .dropdown-btn {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 20px;
     color: #818181;
     display: block;
     transition: 0.3s;
+    border: none;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidebar a:hover, p:hover {
     color: #f1f1f1;
+}
+
+.active {
+    background-color: darkred;
+    color: white;
+}
+
+.fa-caret-down {
+    line-height: inherit;
+}
+
+
+.category-sidebar {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
 }
 
 /* Position and style the close button (top right corner) */
@@ -33,6 +50,11 @@
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
 }
 
 /* The button used to open the sidebar */
@@ -58,5 +80,26 @@
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 18px;}
+    .sidebar a, p {font-size: 18px;}
+    .navbar {padding-top: 15px;}
+    .navbar a, p {font-size: 18px;}
+
+}
+
+#navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+/* Navbar links */
+#navbar a, span, button {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
 }
