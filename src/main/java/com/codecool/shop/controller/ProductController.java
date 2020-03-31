@@ -42,12 +42,6 @@ public class ProductController extends HttpServlet {
         }*/
         context.setVariable("products", productDataStore.getAll());
 
-        for (Product product: productDataStore.getAll()) {
-            System.out.println(product.getName());
-            System.out.println(product.getId());
-            System.out.println(product.getProductCategory().getId());
-        }
-
         /*Original version:
         context.setVariable("category", productCategoryDataStore.find(1)); // TODO: find out how to add more categories
         context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));*/
