@@ -67,6 +67,10 @@
     margin: 0 0 11px;
 }
 
+.card-text:hover {
+    color: #818181;
+}
+
 .description {
     height: 140px;
 }
