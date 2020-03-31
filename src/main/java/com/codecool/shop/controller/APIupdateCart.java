@@ -23,7 +23,7 @@ public class APIupdateCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         boolean successOfUpdate = false;
-        int id = Integer.parseInt(request.getParameter("item_id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String operation = request.getParameter("operation");
 
