@@ -26,17 +26,28 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/sidebar.css">
+
+    <script src="/static/js/main.js" defer></script>
 </head>
 
 <body>
-
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div>
+    <button class="openbtn" onclick="openNav()">&#9776;</button>
 </div>
 
-<div class="container" th:each="category : ${categories}">
-    <div class="card">
-        <strong th:text="${category.name}" th:data-id="${category.id}">Category Title</strong>
+<div class="jumbotron text-center">
+    <h1>FlipSide</h1>
+</div>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <p th:each="category :  ${categories}" th:data-catid="${category.id}" th:text="${category.name}">Category Name</p>
+</div>
+
+<div class="container" th:each="category : ${categories}" th:data-catid="${category.id}">
+    <div class="card" th:data-id="${category.id}">
+        <strong th:text="${category.name}" >Category Title</strong>
     </div>
 
     <div id="products" class="row">
