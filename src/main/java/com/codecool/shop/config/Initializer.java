@@ -45,6 +45,8 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Custom", 300, "USD", "All times classic one-quiver all-mountain camber board that fits every rider.", snowboard, burton));
+        productDataStore.add(new Product("Flagship", 354, "USD", "This snowboard was created for exactly one reason: to set new freeride standards!", snowboard, jones));
+        productDataStore.add(new Product("Dream Catcher", 287, "USD", "This board is designed to shred the entire mountain in the most playful way possible, without sacrificing high-speed, line-bombing stability. Ideal for all-mountain, freeriding and freestyle.", snowboard, jones));
         System.out.println(productCategoryDataStore.getAll());
     }
 }

@@ -2,6 +2,11 @@
     margin-right:5px;
 }
 
+.images {
+    width: 250px;
+    height: 400px;
+}
+
 .thumbnail
 {
     margin-bottom: 20px;
