@@ -33,6 +33,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bars.css">
 
     <script src="/static/js/category.js" defer></script>
+    <script src="/static/js/supplier.js" defer></script>
+
 </head>
 
 <body>
@@ -55,6 +57,10 @@
             Name
         </p>
     </div>
+    <p class="dropdown">Suppliers<i class="fa fa-caret-down"></i></p>
+    <div class="supplier-sidebar">
+        <p class="suppliers" th:each="supplier : ${suppliers}" th:data-suid="${supplier.id}" th:text="${supplier.name}">Supplier Name</p>
+    </div>
 </div>
 
 <div class="container" th:each="category : ${categories}" th:data-catid="${category.id}">
@@ -62,9 +68,9 @@
         <strong th:text="${category.name}">Category Title</strong>
     </div>
 
-    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}">
-        <div class="card">
-            <strong th:text="${supplier.name}" th:data-id="${supplier.id}">Supplier Name</strong>
+    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}" th:data-supid="${supplier.id}">
+        <div class="card-sup" th:data-sid="${supplier.id}">
+            <strong th:text="${supplier.name}">Supplier Name</strong>
         </div>
 
         <div id="products" class="row">
