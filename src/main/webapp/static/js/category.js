@@ -1,21 +1,3 @@
-function productsOnlyByCLickedCat() {
-    let containers = document.querySelectorAll('.container');
-    let cards = document.querySelectorAll('.card');
-    for (let container of containers) {
-        let containerId = container.dataset.catid;
-        for (let card of cards) {
-            let cardId = card.dataset.id;
-            if (cardId != containerId) {
-                card.addEventListener('click', function () {
-                        container.classList.add('hidden');
-                    }
-                )} else {
-                container.classList.remove('hidden');
-            }
-        }
-    }
-}
-
 function getProductsFromSideBar() {
     let categories = document.querySelectorAll('.categories');
     let containers = document.querySelectorAll('.container');
@@ -53,6 +35,5 @@ function getDropDownInSideBar() {
         });
 }
 
-productsOnlyByCLickedCat();
 getProductsFromSideBar();
 getDropDownInSideBar();
