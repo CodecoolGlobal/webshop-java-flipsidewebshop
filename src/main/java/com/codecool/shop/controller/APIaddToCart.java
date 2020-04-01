@@ -27,7 +27,7 @@ public class APIaddToCart extends HttpServlet {
         Cart cart = customer.getCartInstance();
 
 
-        int id = Integer.parseInt(request.getParameter("item_id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
 
@@ -38,11 +38,13 @@ public class APIaddToCart extends HttpServlet {
                 if (item.getProduct() == currentProduct) {
                     int amount = item.getQuantity();
                     successOfAdd = customer.updateCart(currentProduct, amount + 1);
+                    System.out.println("quantity " + item.getQuantity());
                 }
             }
         } else {
             successOfAdd = customer.updateCart(currentProduct, 1);
         }
+
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 

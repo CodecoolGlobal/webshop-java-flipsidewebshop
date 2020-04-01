@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>Codecool Shop</title>
+    <title>FlipSide</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -32,7 +32,11 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/bars.css">
 
+    <script src="/static/js/category.js" defer></script>
+    <script src="/static/js/supplier.js" defer></script>
     <script src="/static/js/main.js" defer></script>
+    <script src="/static/js/cart.js" defer></script>
+
 </head>
 
 <body>
@@ -58,19 +62,19 @@
 </div>
 
 <div id="navbar">
-    <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
+    <button class="openbtn" onmouseenter="openNav()">&#9776; Menu</button>
     <span>Contact</span>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">
-        Cart
+    <button type="button" class="open-cart" data-toggle="modal" data-target="#cart">
+        <i class="fa fa-shopping-cart"></i>
     </button>
 </div>
 
 <div class="jumbotron text-center">
-    <h1>FlipSide</h1>
+    <h1 style="margin-left: 30%">FLIPSIDE</h1>
 </div>
 
-<div id="mySidebar" class="sidebar">
+<div id="mySidebar" class="sidebar" onmouseleave="closeNav()">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <p>About</p>
     <p class="all-product">See all products</p>
@@ -80,31 +84,39 @@
             Name
         </p>
     </div>
+    <p class="dropdown">Suppliers<i class="fa fa-caret-down"></i></p>
+    <div class="supplier-sidebar">
+        <p class="suppliers" th:each="supplier : ${suppliers}" th:data-suid="${supplier.id}" th:text="${supplier.name}">Supplier Name</p>
+    </div>
 </div>
 
 <div class="container" th:each="category : ${categories}" th:data-catid="${category.id}">
     <div class="card" th:data-id="${category.id}">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong class="category-title" th:text="${category.name}">Category Title</strong>
     </div>
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}"
+    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!supplier.getProducts().isEmpty()}" th:data-supid="${supplier.id}">
+        <div class="card-sup" th:data-sid="${supplier.id}">
+            <strong th:text="${supplier.name}">Supplier Name</strong>
+        </div>
+
+        <div class="products" th:each="prod : ${products}"
              th:if="${category.getId() == prod.getProductCategory().getId()}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff"
-                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text description" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text price">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text cart-button">
-                        <a class="btn btn-success" href="#">Add to cart</a>
-                    </div>
-                </div>
+                    <div class="card product"  th:if="${supplier.getId() == prod.getSupplier().getId()}">
+                        <img class="images" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text description" th:text="${prod.description}">Product description... </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text price">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text cart-button" th:data-id="${prod.getId()}">
+                                <a class="btn btn-success">Add to cart</a>
+                            </div>
+                        </div>
             </div>
         </div>
     </div>

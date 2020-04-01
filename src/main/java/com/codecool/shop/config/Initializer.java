@@ -24,10 +24,12 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        Supplier DGK = new Supplier("DGK", "Skateboards");
+        supplierDataStore.add(DGK);
+        Supplier enjoi = new Supplier("Enjoi", "Skateboards");
+        supplierDataStore.add(enjoi);
+        Supplier rodriguez = new Supplier("Rodriduez", "Skateboards");
+        supplierDataStore.add(rodriguez);
         // boards - new stuff
         Supplier burton = new Supplier("Burton", "Snowboards");
         supplierDataStore.add(burton);
@@ -35,16 +37,24 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(jones);
 
         //setting up a new product category
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        ProductCategory skateboard = new ProductCategory("Skateboard", "Summer", "A short narrow board with two small wheels fixed to the bottom of either end, on which a person can ride pushing one foot against the ground.");
+        productCategoryDataStore.add(skateboard);
         ProductCategory snowboard = new ProductCategory("Snowboard", "Winter", "A piece of fiberglass, P-TEX, wood compound that makes you surf the slopes in winter.");
         productCategoryDataStore.add(snowboard);
 
         //setting up products and printing it
-        productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
-        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Bruce Lee", 69.95f, "USD", "Fantastic price. You can truly skate with the power of Bruce Lee", skateboard, DGK));
+        productDataStore.add(new Product("Zen", 57, "USD", "May the Zen and balance be with you", skateboard, DGK));
+        productDataStore.add(new Product("Naruto", 89, "USD", "With this, you can be the real Ninja on the streets", skateboard, rodriguez));
+        productDataStore.add(new Product("Enjoi", 54.95f, "USD", "Ride on the streets in a peaceful way", skateboard, enjoi));
+        productDataStore.add(new Product("Bloom", 54.95f, "USD", "Flowers will follow you with this board", skateboard, DGK));
+        productDataStore.add(new Product("Yin Yang", 54.95f, "USD", "Ride on the streets with a balanced soul", skateboard, DGK));
+        productDataStore.add(new Product("Ghetto Bears", 54.95f, "USD", "Bring the beasts with you", skateboard, DGK));
+
+
         productDataStore.add(new Product("Custom", 300, "USD", "All times classic one-quiver all-mountain camber board that fits every rider.", snowboard, burton));
+        productDataStore.add(new Product("Flagship", 354, "USD", "This snowboard was created for exactly one reason: to set new freeride standards!", snowboard, jones));
+        productDataStore.add(new Product("Dream Catcher", 287, "USD", "This board is designed to shred the entire mountain in the most playful way possible.", snowboard, jones));
         System.out.println(productCategoryDataStore.getAll());
     }
 }
