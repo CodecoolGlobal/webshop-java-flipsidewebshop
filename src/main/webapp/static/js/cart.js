@@ -5,18 +5,14 @@ function main() {
     for (let cartButton of cartButtons) {
         cartButton.addEventListener("click", function () {
             let id = cartButton.dataset.id;
-            fetchResultsPostMethod(id, (response)=>{console.log("callback finished, result: " + response)})
+            fetchResultsPostMethod(id, addToModalBody, errorProne)
 
         })
-
-    };
-
-    let modal = document.querySelector('.modal-body');
-
+    }
 }
 
 
-function fetchResultsPostMethod(content, callback) {
+function fetchResultsPostMethod(content, callback, errorCallback) {
     console.log(content);
     let data = {
         'id': content,
@@ -27,7 +23,19 @@ function fetchResultsPostMethod(content, callback) {
         body: JSON.stringify(data)
     })
         .then((resp) => {return resp.json()})
-        .then((data) => callback(data));
+        .then((data) => callback(data))
+        .catch(errorCallback);
 }
 
-function addToModalBody() {}
+function addToModalBody(data) {
+    let modal = document.querySelector('.modal-body');
+    console.log(data);
+    modal.innerHTML += `
+<div>
+    We have of item with id ${data}. 
+</div>`
+}
+
+function errorProne() {
+    console.log("error");
+}
