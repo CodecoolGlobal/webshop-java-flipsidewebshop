@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
@@ -23,8 +24,11 @@ public class APIaddToCart extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        Customer customer = new Customer(); // TODO: get existing customer instance!
-        Cart cart = customer.getCartInstance();
+        //Customer customer = new Customer(); // TODO: get existing customer instance!
+        //Cart cart = customer.getCartInstance();
+
+        HttpSession session = request.getSession(false);
+        Cart cart = (Cart) session.getAttribute("cart");
 
 
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
@@ -36,8 +40,8 @@ public class APIaddToCart extends HttpServlet {
         Product currentProduct = allProducts.find(id);
         System.out.println("id: "+ id + " amount: " + amount);
 
-        boolean successOfAdd = customer.updateCart(currentProduct, amount);
-        System.out.println(customer.getcartItems());
+        boolean successOfAdd = cart.update(currentProduct, amount);
+        System.out.println(cart.getShoppingCart());
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 
