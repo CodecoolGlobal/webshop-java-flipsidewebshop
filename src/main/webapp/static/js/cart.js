@@ -35,7 +35,7 @@ function fetchError() {
 
 function addOneItemToCart(addButton) {
     addButton.addEventListener("click", function () {
-        let id = addButton.dataset.id;
+        let id = Number(addButton.dataset.id);
         let data = {'id': id, 'amount': 1};
         fetchPostMethod(data, addNewLineToModalBody, fetchError)
     })
