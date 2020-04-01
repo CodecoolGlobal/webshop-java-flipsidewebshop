@@ -5,7 +5,6 @@ import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 
@@ -24,13 +23,8 @@ public class APIaddToCart extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        //Customer customer = new Customer(); // TODO: get existing customer instance!
-        //Cart cart = customer.getCartInstance();
-
         HttpSession session = request.getSession(false);
         Cart cart = (Cart) session.getAttribute("cart");
-
-
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         requestIdContainer requestIdContainer = new Gson().fromJson(param, requestIdContainer.class);
 
@@ -38,10 +32,7 @@ public class APIaddToCart extends HttpServlet {
         int amount = Integer.parseInt(requestIdContainer.getAmount());
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
-        System.out.println("id: "+ id + " amount: " + amount);
-
         boolean successOfAdd = cart.update(currentProduct, amount);
-        System.out.println(cart.getShoppingCart());
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 
