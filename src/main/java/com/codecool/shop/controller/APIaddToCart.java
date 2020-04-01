@@ -9,6 +9,7 @@ import com.codecool.shop.model.Item;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.JsonElement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +23,43 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/api/add-to-cart"})
 public class APIaddToCart extends HttpServlet {
+    private static class RequestData {
+        public int id;
+        public String name;
+        public List<Integer> favNums;
+
+        @Override
+        public String toString() {
+            var sb = new StringBuilder();
+            sb
+                .append("{\n")
+                .append("	name: " + name + "\n")
+                .append("	favorite numbers: " + favNums + "\n")
+                .append("}");
+
+            return sb.toString();
+        }
+    }
+
+    public static Optional<RequestData> getId(Reader reader) {
+        var gson = new Gson();
+        // var element = gson.fromJson(reader, JsonElement.class);
+        try {
+            // var obj = element.getAsJsonObject();
+            // var id = obj
+            //     .getAsJsonPrimitive("id")
+            //     .getAsInt();
+            var requestData = gson.fromJson(reader, RequestData.class);
+            return Optional.of(requestData);
+        }
+        catch (IllegalStateException|NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
