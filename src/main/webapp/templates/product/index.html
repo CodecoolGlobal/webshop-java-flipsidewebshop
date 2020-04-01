@@ -51,7 +51,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div th:if="${cart.isEmpty()}">
+                    <div th:insert=" cart.html :: modal-empty">...</div>
+                </div>
+                <div th:unless="${cart.isEmpty()}">
+                    <div th:insert=" cart.html :: modal-content">...</div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

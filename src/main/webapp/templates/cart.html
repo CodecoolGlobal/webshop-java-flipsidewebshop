@@ -7,7 +7,8 @@
 <body>
 
 <h1>Shopping cart</h1>
-<table th:each="item : ${items}">
+<div th:fragment="modal-content">
+<table th:each="item : ${cart}">
     <thead></thead>
     <tbody>
     <tr><td th:text="${item.getProduct().getName()}">Cartitem</td>
@@ -17,6 +18,10 @@
     </tbody>
 
 </table>
+</div>
+<div th:fragment="modal-empty">
+    <p>Your cart is empty.</p>
+</div>
 
 </body>
 </html>
