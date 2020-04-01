@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/api/remove-item"})
+@WebServlet(urlPatterns = {"/api/empty-cart"})
 public class APIEmptyCart extends HttpServlet {
 
     @Override
