@@ -28,6 +28,7 @@ import java.util.Map;
 public class ProductController extends HttpServlet {
     private Object ArrayList;
     static Customer customer = new Customer();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
