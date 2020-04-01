@@ -28,9 +28,7 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
-
     private Object ArrayList;
-
     static Customer customer = new Customer();
 
     @Override
@@ -59,6 +57,4 @@ public class ProductController extends HttpServlet {
 
         engine.process("product/index.html", context, resp.getWriter());
     }
-
-
 }

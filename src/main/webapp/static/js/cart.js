@@ -8,9 +8,9 @@ function main() {
 }
 
 
-function fetchPostMethod(content, callback, errorCallback) {
+function fetchPostMethod(url, content, callback, errorCallback) {
     console.log(content);
-    fetch(`/api/add-to-cart`, {
+    fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(content)
@@ -37,6 +37,6 @@ function addOneItemToCart(addButton) {
     addButton.addEventListener("click", function () {
         let id = Number(addButton.dataset.id);
         let data = {'id': id, 'amount': 1};
-        fetchPostMethod(data, addNewLineToModalBody, fetchError)
+        fetchPostMethod(`/api/add-to-cart`, data, addNewLineToModalBody, fetchError)
     })
 }

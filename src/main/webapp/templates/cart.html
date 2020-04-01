@@ -20,10 +20,10 @@
             <div th:text="${item.product.name}">Cartitem</div>
             <div th:text="${item.product.price}">Price</div>
             <div class="navbar">
-                <button name="minusitem">Minus</button>
+                <button name="minusitem" class="minus-item" th:data-amount="${item.quantity}" th:data-id="${item.product.getId()}">Minus</button>
                 <div th:text="${item.quantity}">Quantity</div>
-                <button name="plusitem">Plus</button>
-                <button name="deleteitem">Del</button>
+                <button name="plusitem" class="plus-item" th:data-amount="${item.quantity}" th:data-id="${item.product.getId()}">Plus</button>
+                <button name="deleteitem" class="plus-item" th:data-amount="0" th:data-id="${item.product.getId()}">Del</button>
             </div>
         </div>
 
