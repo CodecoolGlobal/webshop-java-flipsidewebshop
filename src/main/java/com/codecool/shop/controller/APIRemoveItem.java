@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
@@ -24,7 +25,11 @@ public class APIRemoveItem extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        Customer customer = new Customer(); // TODO: get existing customer instance!
+        //Customer customer = new Customer(); // TODO: get existing customer instance!
+        HttpSession session = request.getSession(false);
+        Cart cart = (Cart) session.getAttribute("cart");
+        cart.emptyCart();
+
         /* Get request body */
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         requestRemoveContainer requestContainer = new Gson().fromJson(param, requestRemoveContainer.class);
@@ -33,7 +38,8 @@ public class APIRemoveItem extends HttpServlet {
         /* method body*/
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
-        customer.removeItemFromCart(currentProduct);
+        cart.removeItem(currentProduct);
+        //customer.removeItemFromCart(currentProduct);
 
         /* Generate and send response */
         String JSONrepsonse = new Gson().toJson(true);
