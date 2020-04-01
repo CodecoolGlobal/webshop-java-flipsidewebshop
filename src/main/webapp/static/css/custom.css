@@ -11,6 +11,16 @@
     width: 285px;
 }
 
+.jumbotron {
+    background-position: center;
+    margin-top: 30px;
+    display: grid;
+    background-image: url("/static/mainpic/logo.jpg");
+    font-family: OCR A Std, monospace;
+    font-style: oblique;
+    text-decoration: underline;
+}
+
 .thumbnail
 {
     margin-bottom: 20px;
