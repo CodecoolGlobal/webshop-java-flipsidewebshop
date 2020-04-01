@@ -3,39 +3,40 @@ main();
 function main() {
     let cartButtons = document.querySelectorAll(".cart-button");
     for (let cartButton of cartButtons) {
-        cartButton.addEventListener("click", function () {
-            let id = cartButton.dataset.id;
-            fetchResultsPostMethod(id, addToModalBody, errorProne)
-
-        })
+        addOneItemToCart(cartButton);
     }
 }
 
 
-function fetchResultsPostMethod(content, callback, errorCallback) {
+function fetchPostMethod(content, callback, errorCallback) {
     console.log(content);
-    let data = {
-        'id': content,
-    };
     fetch(`/api/add-to-cart`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(content)
     })
         .then((resp) => {return resp.json()})
-        .then((data) => callback(data))
+        .then((data) => callback(data, content))
         .catch(errorCallback);
 }
 
-function addToModalBody(data) {
+function addNewLineToModalBody(response, data) {
     let modal = document.querySelector('.modal-body');
-    console.log(data);
+    console.log(response);
     modal.innerHTML += `
 <div>
-    We have of item with id ${data}. 
+    We have of item with id ${data.id}, added amount of ${data.amount} and the response is ${response}. 
 </div>`
 }
 
-function errorProne() {
+function fetchError() {
     console.log("error");
+}
+
+function addOneItemToCart(addButton) {
+    addButton.addEventListener("click", function () {
+        let id = addButton.dataset.id;
+        let data = {'id': id, 'amount': 1};
+        fetchPostMethod(data, addNewLineToModalBody, fetchError)
+    })
 }
