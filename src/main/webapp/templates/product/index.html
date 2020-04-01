@@ -100,11 +100,9 @@
             <strong th:text="${supplier.name}">Supplier Name</strong>
         </div>
 
-        <div id="products" class="row">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}"
-                 th:if="${category.getId() == prod.getProductCategory().getId()}">
-                <div th:if="${supplier.getId() == prod.getSupplier().getId()}">
-                    <div class="card">
+        <div class="products" th:each="prod : ${products}"
+             th:if="${category.getId() == prod.getProductCategory().getId()}">
+                    <div class="card product"  th:if="${supplier.getId() == prod.getSupplier().getId()}">
                         <img class="images" src="http://placehold.it/400x250/000/fff"
                              th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                         <div class="card-header">
@@ -119,8 +117,6 @@
                                 <a class="btn btn-success">Add to cart</a>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

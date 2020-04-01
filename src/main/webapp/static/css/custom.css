@@ -3,8 +3,12 @@
 }
 
 .images {
-    width: 325px;
-    height: 400px;
+    width: 285px;
+    height: 350px;
+}
+
+.card-header, .card-body {
+    width: 285px;
 }
 
 .thumbnail
@@ -75,6 +79,12 @@
     height: 140px;
 }
 
+.product, .products {
+    display: inline-block;
+    width: fit-content;
+}
+
 .hidden {
     display: none;
 }
+
