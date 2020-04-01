@@ -13,23 +13,6 @@ function main() {
         }
     });
 
-    /*
-        let addButtons = document.querySelectorAll(".plus-item");
-        for (let addButton of addButtons) {
-            console.log("plus");
-            addOneMoreItemToCart(addButton);
-        }
-
-        let removeButtons = document.querySelectorAll(".minus-item");
-        for (let removeButton of removeButtons) {
-            console.log("minus");
-            removeOneItemFromCart(removeButton);
-        }
-    }
-
-     */
-
-
     function fetchPostMethod(url, content, callback, errorCallback) {
         console.log(content);
         fetch(url, {
@@ -57,14 +40,21 @@ function main() {
 
     function removeOneItemFromCart(button) {
         let id = Number(button.dataset.id);
-        let data = {'id': id, 'amount': -1};
-        fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError)
+        let amount = Number(button.dataset.amount);
+        if (amount <= 1) {
+            removeAllInstancesOfItemFromCart(button);
+        } else {
+            let data = {'id': id, 'amount': -1};
+            fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError);
+        }
     }
 
     function removeAllInstancesOfItemFromCart(button) {
         let id = Number(button.dataset.id);
         let data = {'id': id};
         fetchPostMethod('api/remove-item', data, addNewLineToModalBody, fetchError)
+        /*
+        * Should remove one line from modal body instead of adding one*/
     }
 
     function emptyCart() {
