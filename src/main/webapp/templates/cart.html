@@ -23,7 +23,7 @@
                 <button name="minusitem" class="minus-item" th:data-amount="${item.quantity}" th:data-id="${item.product.getId()}">Minus</button>
                 <div th:text="${item.quantity}">Quantity</div>
                 <button name="plusitem" class="plus-item" th:data-amount="${item.quantity}" th:data-id="${item.product.getId()}">Plus</button>
-                <button name="deleteitem" class="plus-item" th:data-amount="0" th:data-id="${item.product.getId()}">Del</button>
+                <button name="deleteitem" class="delete-item" th:data-amount="0" th:data-id="${item.product.getId()}">Del</button>
             </div>
         </div>
 
