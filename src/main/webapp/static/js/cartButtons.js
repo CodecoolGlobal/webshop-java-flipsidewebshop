@@ -6,7 +6,7 @@ function main() {
             addOneMoreItemToCart(event.target)
         }
         if (event.target.matches(".minus-item")) {
-            removeOneItemFromCart(event.taget)
+            removeOneItemFromCart(event.target)
         }
         if (event.target.matches(".delete-item")) {
             removeOneItemFromCart(event.target)
@@ -62,7 +62,7 @@ function main() {
         let amount = Number(button.dataset.amount);
         let data = {'id': id, 'amount': -1};
         console.log(`id: ${data.id}, amount: ${data.amount}`);
-        fetchPostMethod('api/remove-item', data, addNewLineToModalBody, fetchError)
+        fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError)
     }
 
     function emptyCart() {
