@@ -2,6 +2,26 @@
     margin-right:5px;
 }
 
+.images {
+    width: 285px;
+    height: 350px;
+}
+
+.card-header, .card-body {
+    width: 285px;
+}
+
+.jumbotron {
+    background-position: center;
+    margin-top: 30px;
+    display: grid;
+    background-image: url("/static/mainpic/logo.jpg");
+    font-family: OCR A Std, monospace;
+    font-style: oblique;
+    text-decoration: underline;
+    color: #111111;
+}
+
 .thumbnail
 {
     margin-bottom: 20px;
@@ -62,10 +82,20 @@
     margin: 0 0 11px;
 }
 
+.card-text:hover {
+    color: #818181;
+}
+
 .description {
     height: 140px;
+}
+
+.product, .products {
+    display: inline-block;
+    width: fit-content;
 }
 
 .hidden {
     display: none;
 }
+

@@ -87,14 +87,12 @@
 }
 
 #navbar {
-    overflow: hidden;
-    background-color: #333;
     position: absolute;
+    background-color: #333;
     top: 0;
     width: 100%;
 }
 
-/* Navbar links */
 #navbar a, span, button {
     float: left;
     display: block;
@@ -102,4 +100,20 @@
     text-align: center;
     padding: 14px;
     text-decoration: none;
+    background: inherit;
+    height: fit-content;
+}
+
+.open-cart {
+    float: right;
+    height: 51px;
+
+}
+
+.fa-shopping-cart {
+    font-size: large;
+}
+
+#navbar a:hover, span:hover, button:hover {
+    color: #818181;
 }

@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>Codecool Shop</title>
+    <title>FlipSide</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -65,13 +65,13 @@
     <button class="openbtn" onmouseenter="openNav()">&#9776; Menu</button>
     <span>Contact</span>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">
-        Cart
+    <button type="button" class="open-cart" data-toggle="modal" data-target="#cart">
+        <i class="fa fa-shopping-cart"></i>
     </button>
 </div>
 
 <div class="jumbotron text-center">
-    <h1>FlipSide</h1>
+    <h1 style="margin-left: 30%">FLIPSIDE</h1>
 </div>
 
 <div id="mySidebar" class="sidebar" onmouseleave="closeNav()">
@@ -100,12 +100,10 @@
             <strong th:text="${supplier.name}">Supplier Name</strong>
         </div>
 
-        <div id="products" class="row">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}"
-                 th:if="${category.getId() == prod.getProductCategory().getId()}">
-                <div th:if="${supplier.getId() == prod.getSupplier().getId()}">
-                    <div class="card">
-                        <img class="" src="http://placehold.it/400x250/000/fff"
+        <div class="products" th:each="prod : ${products}"
+             th:if="${category.getId() == prod.getProductCategory().getId()}">
+                    <div class="card product"  th:if="${supplier.getId() == prod.getSupplier().getId()}">
+                        <img class="images" src="http://placehold.it/400x250/000/fff"
                              th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                         <div class="card-header">
                             <h4 class="card-title" th:text="${prod.name}">Product name</h4>
@@ -119,8 +117,6 @@
                                 <a class="btn btn-success">Add to cart</a>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
