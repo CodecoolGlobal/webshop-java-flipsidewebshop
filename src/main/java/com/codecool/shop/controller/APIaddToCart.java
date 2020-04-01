@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 
-import com.codecool.shop.controller.json.PendingItem;
+import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
@@ -28,13 +28,16 @@ public class APIaddToCart extends HttpServlet {
 
 
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        PendingItem pendingItem = new Gson().fromJson(param, PendingItem.class);
+        requestIdContainer requestIdContainer = new Gson().fromJson(param, requestIdContainer.class);
 
-        int id = Integer.parseInt(pendingItem.getId());
+        int id = Integer.parseInt(requestIdContainer.getId());
+        int amount = Integer.parseInt(requestIdContainer.getAmount());
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
+        System.out.println("id: "+ id + " amount: " + amount);
 
-        boolean successOfAdd = customer.updateCart(currentProduct, 1);
+        boolean successOfAdd = customer.updateCart(currentProduct, amount);
+        System.out.println(customer.getcartItems());
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 
