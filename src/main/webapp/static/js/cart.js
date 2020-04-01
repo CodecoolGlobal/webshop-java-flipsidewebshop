@@ -5,7 +5,7 @@ function main() {
     for (let cartButton of cartButtons) {
         cartButton.addEventListener("click", function () {
             let id = cartButton.dataset.id;
-            console.log(id);
+            fetchResultsPostMethod(id, (response)=>{console.log("callback finished, result: " + response)})
 
         })
 
@@ -17,10 +17,14 @@ function main() {
 
 
 function fetchResultsPostMethod(content, callback) {
+    console.log(content);
+    let data = {
+        'id': content,
+    };
     fetch(`/api/add-to-cart`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(content)
+        body: JSON.stringify(data)
     })
         .then((resp) => {return resp.json()})
         .then((data) => callback(data));
