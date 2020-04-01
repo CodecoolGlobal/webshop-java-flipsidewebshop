@@ -1,11 +1,11 @@
 package com.codecool.shop.controller;
 
 
+import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Item;
 import com.codecool.shop.model.Product;
 import com.google.gson.Gson;
 
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/api/add-to-cart"})
 public class APIaddToCart extends HttpServlet {
@@ -27,24 +27,17 @@ public class APIaddToCart extends HttpServlet {
         Cart cart = customer.getCartInstance();
 
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        requestIdContainer requestIdContainer = new Gson().fromJson(param, requestIdContainer.class);
+
+        int id = Integer.parseInt(requestIdContainer.getId());
+        int amount = Integer.parseInt(requestIdContainer.getAmount());
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
+        System.out.println("id: "+ id + " amount: " + amount);
 
-        List<Item> itemsInCart = customer.getcartItems();
-        boolean successOfAdd = false;
-        if (cart.inCart(currentProduct)) {
-            for (Item item : itemsInCart) {
-                if (item.getProduct() == currentProduct) {
-                    int amount = item.getQuantity();
-                    successOfAdd = customer.updateCart(currentProduct, amount + 1);
-                    System.out.println("quantity " + item.getQuantity());
-                }
-            }
-        } else {
-            successOfAdd = customer.updateCart(currentProduct, 1);
-        }
-
+        boolean successOfAdd = customer.updateCart(currentProduct, amount);
+        System.out.println(customer.getcartItems());
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 
