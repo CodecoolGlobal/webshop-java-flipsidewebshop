@@ -72,10 +72,10 @@ let template = {
                 <div>${product.name}</div>
                 <div>${product.price}">Price</div>
                 <div>
-                    <button name="minusitem" class="minus-item" data-id="${product.id}">Minus</button>
+                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">Minus</button>
                     <div class="amount">${product.amount}</div>
-                    <button name="plusitem" class="plus-item"  data-id="${product.id}">Plus</button>
-                    <button name="deleteitem" class="del-item" data-id="${product.id}">Del</button>
+                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">Plus</button>
+                    <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
                 </div>
             </div>
         </div>
