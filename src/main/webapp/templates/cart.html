@@ -8,16 +8,32 @@
 
 <h1>Shopping cart</h1>
 <div th:fragment="modal-content">
-<table th:each="item : ${cart}">
-    <thead></thead>
-    <tbody>
-    <tr><td th:text="${item.getProduct().getName()}">Cartitem</td>
-        <td th:text="${item.getQuantity()}">quantity</td>
+<div th:each="item : ${cart}">
 
-    </tr>
-    </tbody>
+    <!-- Class names here only for signaling what is placed in particular div -->
+    <div class="itemwrapper" style="display:inline-flex">
+        <div class="picture" style="width:200px;height:200px">
+            <img class="" src="http://placehold.it/400x250/000/fff"
+                 th:attr="src='/static/img/product_' + ${item.product.id} + '.jpg'" alt=""/>
+        </div>
+        <div class="infoaboutitem" style="display:flex;flex-direction: column">
+            <div th:text="${item.product.name}">Cartitem</div>
+            <div th:text="${item.product.price}">Price</div>
+            <div class="navbar">
+                <button name="minusitem">Minus</button>
+                <div th:text="${item.quantity}">Quantity</div>
+                <button name="plusitem">Plus</button>
+                <button name="deleteitem">Del</button>
+            </div>
+        </div>
 
-</table>
+
+    </div>
+
+
+
+
+</div>
 </div>
 <div th:fragment="modal-empty">
     <p>Your cart is empty.</p>
