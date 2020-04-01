@@ -4,9 +4,17 @@ import java.util.List;
 
 public class Customer {
     private Cart cart;
+    private Cart instance = null;
 
     public Customer(){
-        this.cart = new Cart();
+        this.cart = getCartInstance();
+    }
+
+    public Cart getCartInstance() {
+        if (instance == null) {
+            instance = new Cart();
+        }
+        return instance;
     }
 
     public List<Item> getcartItems() {
