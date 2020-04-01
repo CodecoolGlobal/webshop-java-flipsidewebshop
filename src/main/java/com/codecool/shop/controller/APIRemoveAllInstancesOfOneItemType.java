@@ -21,21 +21,18 @@ import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/api/remove-item"})
-public class APIRemoveItem extends HttpServlet {
+public class APIRemoveAllInstancesOfOneItemType extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        //Customer customer = new Customer(); // TODO: get existing customer instance!
-        HttpSession session = request.getSession(false);
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.emptyCart();
-
         /* Get request body */
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         requestRemoveContainer requestContainer = new Gson().fromJson(param, requestRemoveContainer.class);
         int id = Integer.parseInt(requestContainer.getId());
 
         /* method body*/
+        HttpSession session = request.getSession(false);
+        Cart cart = (Cart) session.getAttribute("cart");
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
         cart.removeItem(currentProduct);
