@@ -5,14 +5,11 @@ function main() {
     for (let cartButton of cartButtons) {
         cartButton.addEventListener("click", function () {
             let id = cartButton.dataset.id;
-            console.log(id);
-
+            let idMap = {"id": id};
+            fetchResultsPostMethod(idMap, addToModalBody());
         })
 
-    };
-
-    let modal = document.querySelector('.modal-body');
-
+    }
 }
 
 
@@ -26,4 +23,11 @@ function fetchResultsPostMethod(content, callback) {
         .then((data) => callback(data));
 }
 
-function addToModalBody() {}
+function addToModalBody(data) {
+    let modal = document.querySelector('.modal-body');
+    console.log(data);
+    modal.innerHTML += `
+<div>
+    We have of item with id ${data}. 
+</div>`
+}
