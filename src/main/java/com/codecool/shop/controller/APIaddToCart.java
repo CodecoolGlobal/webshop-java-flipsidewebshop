@@ -25,13 +25,16 @@ public class APIaddToCart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Customer customer = new Customer(); // TODO: get existing customer instance!
         Cart cart = customer.getCartInstance();
+        System.out.println();
 
 
         int id = Integer.parseInt(request.getParameter("id"));
         ProductDao allProducts = ProductDaoMem.getInstance();
         Product currentProduct = allProducts.find(id);
 
-        List<Item> itemsInCart = customer.getcartItems();
+        boolean successOfAdd = customer.updateCart(currentProduct, 1);
+
+        /*List<Item> itemsInCart = customer.getcartItems();
         boolean successOfAdd = false;
         if (cart.inCart(currentProduct)) {
             for (Item item : itemsInCart) {
@@ -43,7 +46,7 @@ public class APIaddToCart extends HttpServlet {
             }
         } else {
             successOfAdd = customer.updateCart(currentProduct, 1);
-        }
+        }*/
 
 
         String JSONrepsonse = new Gson().toJson(successOfAdd);
