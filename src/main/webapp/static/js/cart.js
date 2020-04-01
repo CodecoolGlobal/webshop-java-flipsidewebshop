@@ -6,21 +6,21 @@ function main() {
         cartButton.addEventListener("click", function () {
             let id = cartButton.dataset.id;
             let idMap = {"id": id};
-            fetchResultsPostMethod(idMap, addToModalBody());
+            fetchResultsPostMethod(idMap, addToModalBody, errorProne);
         })
-
     }
 }
 
 
-function fetchResultsPostMethod(content, callback) {
+function fetchResultsPostMethod(content, callback, errorCallback) {
     fetch(`/api/add-to-cart`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(content)
     })
         .then((resp) => {return resp.json()})
-        .then((data) => callback(data));
+        .then((data) => callback(data))
+        .catch(errorCallback);
 }
 
 function addToModalBody(data) {
@@ -30,4 +30,8 @@ function addToModalBody(data) {
 <div>
     We have of item with id ${data}. 
 </div>`
+}
+
+function errorProne() {
+    console.log("error");
 }
