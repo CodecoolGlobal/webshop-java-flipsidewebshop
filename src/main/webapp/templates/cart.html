@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Shopping cart</h1>
+<div th:fragment="modal-content">
+<table th:each="item : ${cart}">
+    <thead></thead>
+    <tbody>
+    <tr><td th:text="${item.getProduct().getName()}">Cartitem</td>
+        <td th:text="${item.getQuantity()}">quantity</td>
+
+    </tr>
+    </tbody>
+
+</table>
+</div>
+<div th:fragment="modal-empty">
+    <p>Your cart is empty.</p>
+</div>
+
+</body>
+</html>
