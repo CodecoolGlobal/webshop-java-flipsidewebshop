@@ -27,40 +27,6 @@ import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/api/add-to-cart"})
 public class APIaddToCart extends HttpServlet {
-    private static class RequestData {
-        public int id;
-        public String name;
-        public List<Integer> favNums;
-
-        @Override
-        public String toString() {
-            var sb = new StringBuilder();
-            sb
-                .append("{\n")
-                .append("	name: " + name + "\n")
-                .append("	favorite numbers: " + favNums + "\n")
-                .append("}");
-
-            return sb.toString();
-        }
-    }
-
-    public static Optional<RequestData> getId(Reader reader) {
-        var gson = new Gson();
-        // var element = gson.fromJson(reader, JsonElement.class);
-        try {
-            // var obj = element.getAsJsonObject();
-            // var id = obj
-            //     .getAsJsonPrimitive("id")
-            //     .getAsInt();
-            var requestData = gson.fromJson(reader, RequestData.class);
-            return Optional.of(requestData);
-        }
-        catch (IllegalStateException|NumberFormatException e) {
-            return Optional.empty();
-        }
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Customer customer = new Customer(); // TODO: get existing customer instance!
@@ -90,22 +56,7 @@ public class APIaddToCart extends HttpServlet {
         Product currentProduct = allProducts.find(id);
 
         boolean successOfAdd = customer.updateCart(currentProduct, 1);
-
-        /*List<Item> itemsInCart = customer.getcartItems();
-        boolean successOfAdd = false;
-        if (cart.inCart(currentProduct)) {
-            for (Item item : itemsInCart) {
-                if (item.getProduct() == currentProduct) {
-                    int amount = item.getQuantity();
-                    successOfAdd = customer.updateCart(currentProduct, amount + 1);
-                    System.out.println("quantity " + item.getQuantity());
-                }
-            }
-        } else {
-            successOfAdd = customer.updateCart(currentProduct, 1);
-        }*/
-
-
+        
         String JSONrepsonse = new Gson().toJson(successOfAdd);
 
         PrintWriter out = resp.getWriter();
