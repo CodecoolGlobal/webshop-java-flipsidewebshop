@@ -10,7 +10,6 @@ function main() {
     }
 }
 
-
 function fetchPostMethod(url, content, callback, errorCallback) {
     fetch(url, {
         method: 'POST',
@@ -18,8 +17,8 @@ function fetchPostMethod(url, content, callback, errorCallback) {
         body: JSON.stringify({'id': content.id, 'amount': content.amount })
     })
         .then((resp) => {return resp.json()})
-        .then((data) => callback(data, content));
-        //.catch(errorCallback);
+        .then((data) => callback(data, content))
+        .catch(errorCallback);
 }
 
 function recalcNumberOfItemsInCart(data) {
@@ -45,16 +44,12 @@ function addNewLineToModalBody(response, data) {
     }
 }
 
-
 function recalcSubtotal(data) {
     let modal = document.querySelector('.modal-body');
     let subtotalLine = modal.querySelector('.subtotal');
     let itemElement = modal.querySelector(`[data-product-id="${data.id}"]`);
-
     let subtotal = Number(modal.dataset.amount) * Number(itemElement.dataset.price);
     subtotalLine.textContent = `Subtotal: ${subtotal} USD`;
-
-
 }
 
 function addNewAmountToExisting(target, data){
