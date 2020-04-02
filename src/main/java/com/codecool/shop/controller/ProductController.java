@@ -35,12 +35,15 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession(false);
+        Cart cart;
 
         if (session == null) {
-            Cart cart = new Cart();
+            cart = new Cart();
             session = req.getSession();
             session.setAttribute("userName", "anonymous");
             session.setAttribute("cart", cart);
+        } else {
+            cart = (Cart) session.getAttribute("cart");
         }
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -49,6 +52,7 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         customer.updateCart(productDataStore.find(1), 1);
+        context.setVariable("numberOfProductsInCart", cart.getNumberOfProductsInCart());
         context.setVariable("categories", productCategoryDataStore.getAll());
 
         context.setVariable("products", productDataStore.getAll());

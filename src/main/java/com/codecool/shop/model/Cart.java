@@ -7,6 +7,10 @@ import java.util.Objects;
 public class Cart {
     private List<Item> shoppingCart;
 
+    public int getNumberOfProductsInCart() {
+        return shoppingCart.size();
+    }
+
     public Cart(){
         this.shoppingCart = new ArrayList<Item>();
     }

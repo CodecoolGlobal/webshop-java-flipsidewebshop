@@ -106,3 +106,7 @@ let template = {
         `
     },
 }
+
+function displayNumberOfItems(number) {
+    let placeForNumber = document.querySelector("#");
+}
