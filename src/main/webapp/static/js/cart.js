@@ -1,6 +1,9 @@
 main();
 
 function main() {
+    let title = document.querySelector('.modal-title');
+    title.innerHTML = ``;
+    title.insertAdjacentHTML("beforeend", "Shopping Cart");
     let cartButtons = document.querySelectorAll(".cart-button");
     for (let cartButton of cartButtons) {
         addOneItemToCart(cartButton);
@@ -73,23 +76,26 @@ function addOneItemToCart(addButton) {
 let template = {
     modal: (product) => {
         return `
-        <div class="itemwrapper" style="display:inline-flex" data-product-id="${product.id}">
-            <div class="picture" style="display:inline-block;width:200px;height:200px">
+        <div class="itemwrapper" data-product-id="${product.id}">
+            <div class="picture">
                 <img class="pic"
                      src='/static/img/product_${product.id}.jpg' alt=""/>
             </div>
-            <div class="infoaboutitem" style="display:flex;flex-direction: column">
+            <div class="infoaboutitem">
                 <div>${product.name}</div>
-                <div data-price="${product.price}">${product.price}</div>
-                <div>
-                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">Minus</button>
+                <div data-price="${product.price}">Unit Price: ${product.price}</div>
+                <div class="amount-button">
+                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">-</button>
                     <div class="amount" data-amount="${product.amount}">${product.amount}</div>
-                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">Plus</button>
-                    <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
+                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
                 </div>
+                <div>
+                    <button name="deleteitem" id="deletebutton" class="fa fa-trash-o" data-id="${product.id}"></button>
+                </div>
+                <div class="act-price">Actual Price: </div>
             </div>
         </div>
         
         `
     },
-};
+}
