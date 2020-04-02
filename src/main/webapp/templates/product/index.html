@@ -36,6 +36,7 @@
     <script src="/static/js/supplier.js" defer></script>
     <script src="/static/js/main.js" defer></script>
     <script src="/static/js/cart.js" defer></script>
+    <script src="/static/js/cartButtons.js" defer></script>
 
 </head>
 
@@ -51,7 +52,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div th:if="${cart.isEmpty()}">
+                    <div th:insert=" cart.html :: modal-empty">...</div>
+                </div>
+                <div th:unless="${cart.isEmpty()}">
+                    <div th:insert=" cart.html :: modal-content">...</div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,8 +112,12 @@
                         <img class="images" src="http://placehold.it/400x250/000/fff"
                              th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                         <div class="card-header">
-                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                            <p class="card-text description" th:text="${prod.description}">Product description... </p>
+                            <h4 class="card-title" th:data-name="${prod.name}" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text description"
+                               th:data-description="${prod.description}"
+                               th:text="${prod.description}"
+                            >Product description...
+                            </p>
                         </div>
                         <div class="card-body">
                             <div class="card-text price">
