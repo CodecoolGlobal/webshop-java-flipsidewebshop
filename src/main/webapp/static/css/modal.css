@@ -49,5 +49,6 @@
 }
 
 .amount-button {
+    height: 50px;
     display: flex;
 }

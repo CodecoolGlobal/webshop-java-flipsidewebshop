@@ -92,6 +92,7 @@ let template = {
                 <div>
                     <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}"><i class="fa fa-trash-o"></i></button>
                 </div>
+                <div class="act-price">Actual Price: </div>
             </div>
         </div>
         
