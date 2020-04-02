@@ -55,7 +55,7 @@ public class ProductController extends HttpServlet {
         context.setVariable("numberOfProductsInCart", cart.getNumberOfProductsInCart());
         context.setVariable("categories", productCategoryDataStore.getAll());
 
-        context.setVariable("products", productDataStore.getAll());
+        context.setVariable("products", productDataStore);
         context.setVariable("suppliers", supplierDataStore.getAll());
         context.setVariable("cart", ((Cart) session.getAttribute("cart")).getShoppingCart());
 
