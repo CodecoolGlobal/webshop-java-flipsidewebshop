@@ -8,7 +8,7 @@ function main() {
         if (event.target.matches(".minus-item")) {
             removeOneItemFromCart(event.target)
         }
-        if (event.target.matches(".delete-item")) {
+        if (event.target.matches(".del-item")) {
             removeAllInstancesOfItemFromCart(event.target)
         }
     });
