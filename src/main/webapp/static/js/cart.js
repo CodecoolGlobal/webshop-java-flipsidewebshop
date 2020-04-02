@@ -97,7 +97,7 @@ let template = {
                     <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
                 </div>
                 <div>
-                    <div class="subtotal">Subtotal: ${product.amount * product.price.slice(0,-4)} USD</div>
+                    <div class="subtotal" data-subtotal="${Math.round(product.amount * product.price.slice(0,-4) *100) /100}">Subtotal: ${Math.round(product.amount * product.price.slice(0,-4) *100) /100} USD</div>
                     <button name="deleteitem" id="deletebutton" class="fa fa-trash-o" data-id="${product.id}"></button>
                 </div>
             </div>

@@ -105,6 +105,7 @@ function recalcSubtotal(data) {
     let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
 
     let subtotalLine = itemContainer.querySelector('.subtotal');
-    let subtotal = Number(itemContainer.dataset.amount) * Number(itemContainer.dataset.price);
-    subtotalLine.textContent = `Subtotal: ${Math.round(subtotal*100)/100} USD`;
+    let subtotalAmount = Number(itemContainer.dataset.amount) * Number(itemContainer.dataset.price);
+    subtotalLine.textContent = `Subtotal: ${Math.round(subtotalAmount*100)/100} USD`;
+    subtotalLine.dataset.subtotal = subtotalAmount;
 }
