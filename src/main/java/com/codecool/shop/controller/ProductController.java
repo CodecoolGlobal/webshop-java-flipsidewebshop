@@ -51,7 +51,6 @@ public class ProductController extends HttpServlet {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        customer.updateCart(productDataStore.find(1), 1);
         context.setVariable("numberOfProductsInCart", cart.getNumberOfProductsInCart());
         context.setVariable("categories", productCategoryDataStore.getAll());
 
