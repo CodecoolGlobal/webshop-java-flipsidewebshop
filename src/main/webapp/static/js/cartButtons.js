@@ -31,11 +31,11 @@ function main() {
         console.log("error");
     }
 
-    function rewriteAmountLine(response, data, button) { // I need the exact button!!!
+    function rewriteAmountLine(response, data, button) {
         let modal = document.querySelector('.modal-body');
         console.log(response);
         if (response){
-            let newAmount = Number(button.dataset.amount) * Number(data.price);
+            let newAmount = Number(button.dataset.amount) + Number(data.amount);
             let parentNode = button.parentNode;
             let amountDiv = parentNode.querySelector(".amount");
             let controlButtons = parentNode.querySelectorAll(".item-control-button");
@@ -48,6 +48,7 @@ function main() {
 
     function addOneMoreItemToCart(button) {
         let id = Number(button.dataset.id);
+        console.log(id);
         let data = {'id': id, 'amount': 1};
         //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError) // original version
         fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError)
