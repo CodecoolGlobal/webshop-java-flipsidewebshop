@@ -14,7 +14,6 @@ function main() {
     });
 
     function fetchPostMethod(url, content, callback, button, errorCallback) {
-        console.log(content);
         fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -35,15 +34,13 @@ function main() {
         if (response){
             let modal = document.querySelector('.modal-body');
             let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
-            console.log(itemContainer);
             let oldAmount = itemContainer.querySelector(".amount").dataset.amount;
             let newAmount = (parseInt(oldAmount) + parseInt(data.amount)).toString();
 
             itemContainer.dataset.amount = newAmount;
             itemContainer.querySelector(".amount").dataset.amount = newAmount;
             itemContainer.querySelector(".amount").innerHTML = newAmount;
-        } else {
-            console.log(response);
+            recalcSubtotal(data);
         }
     }
 
@@ -101,4 +98,13 @@ function removeItemLine(response, data) {
 
 function putEmptyMessage(target){
     target.insertAdjacentHTML("afterbegin", `<p>Your cart is empty.</p>`);
+}
+
+function recalcSubtotal(data) {
+    let modal = document.querySelector('.modal-body');
+    let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
+
+    let subtotalLine = itemContainer.querySelector('.subtotal');
+    let subtotal = Number(itemContainer.dataset.amount) * Number(itemContainer.dataset.price);
+    subtotalLine.textContent = `Subtotal: ${Math.round(subtotal*100)/100} USD`;
 }

@@ -12,8 +12,6 @@ function main() {
 
 
 function fetchPostMethod(url, content, callback, errorCallback) {
-    console.log(content);
-
     fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -25,7 +23,6 @@ function fetchPostMethod(url, content, callback, errorCallback) {
 }
 
 function addNewLineToModalBody(response, data) {
-    console.log(response);
     if (response){
         let modal = document.querySelector('.modal-body');
         if (modal.querySelector("p")){
@@ -86,7 +83,7 @@ function addOneItemToCart(addButton) {
 let template = {
     modal: (product) => {
         return `
-        <div class="itemwrapper" data-product-id="${product.id}">
+        <div class="itemwrapper" data-product-id="${product.id}" data-price="${product.price.slice(0, -4)}" data-amount="${product.amount}">
             <div class="picture">
                 <img class="pic"
                      src='/static/img/product_${product.id}.jpg' alt=""/>
@@ -99,13 +96,6 @@ let template = {
                     <div class="amount" data-amount="${product.amount}">${product.amount}</div>
                     <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
                 </div>
-                <div>
-                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">Minus</button>
-                    <div class="amount" data-amount="${product.amount}">${product.amount}</div>
-                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">Plus</button>
-                    <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
-                </div>
-                <div class="act-price">Actual Price: </div>
                 <div>
                     <div class="subtotal">Subtotal: ${product.amount * product.price.slice(0,-4)} USD</div>
                     <button name="deleteitem" id="deletebutton" class="fa fa-trash-o" data-id="${product.id}"></button>
