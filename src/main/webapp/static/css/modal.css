@@ -5,7 +5,8 @@
 
 .modal button {
     color: #111111;
-    border-style: outset;
+    border: outset;
+    border-radius: 0px;
     display: block;
     text-align: center;
     padding: 14px;
@@ -16,7 +17,8 @@
 }
 
 .modal button:hover {
-        color: darkred;
+    border-color: initial;
+    color: darkred;
     background-color: #818181;
 }
 
@@ -33,13 +35,13 @@
 }
 
 .itemwrapper {
-    display:inline-flex;
+    display: inline-flex;
 }
 
 .picture {
-    display:inline-block;
-    width:200px;
-    height:200px;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
 }
 
 .pic {
@@ -48,7 +50,7 @@
 }
 
 .infoaboutitem {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -68,7 +70,7 @@
 
 .modal-title {
     color: darkred;
-    font-size: small;
+    font-size: medium;
 }
 
 
@@ -76,6 +78,7 @@
     text-decoration: #111111;
     padding: 0rem;
     margin: -1rem -1rem -1rem auto;
+    border: none;
 }
 
 .close span {
