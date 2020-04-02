@@ -65,7 +65,7 @@ let template = {
         return `
         <div class="itemwrapper" style="display:inline-flex">
             <div class="picture" style="width:200px;height:200px">
-                <img class=""
+                <img class="pic"
                      src='/static/img/product_${product.id}.jpg' alt=""/>
             </div>
             <div class="infoaboutitem" style="display:flex;flex-direction: column">
