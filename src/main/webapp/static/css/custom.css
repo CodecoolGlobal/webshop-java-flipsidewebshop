@@ -16,6 +16,7 @@
 }
 
 .jumbotron {
+    padding-top: 135px;
     background-position: center;
     margin-top: 30px;
     display: grid;

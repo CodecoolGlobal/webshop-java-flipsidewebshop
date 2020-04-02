@@ -87,10 +87,11 @@
 }
 
 #navbar {
-    position: absolute;
+    position: fixed;
     background-color: #333;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 #navbar a, span, button {
