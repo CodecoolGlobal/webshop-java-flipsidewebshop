@@ -27,14 +27,11 @@
                     </button>
                 </div>
                 <div>
+                    <div class="subtotal" th:text="'Subtotal: ' + ${#strings.substring(item.product.price, 0, #strings.length(item.product.price)-4) * item.quantity  } + ' USD'">Subtotal: 0 USD</div>
                     <button name="deleteitem" id="deletebutton" class="fa fa-trash-o" th:data-id="${item.product.id}">
                     </button>
                 </div>
             </div>
-            <div>
-                <div class="subtotal" th:text="'Subtotal: ' + ${#strings.substring(item.product.price, 0, #strings.length(item.product.price)-4) * item.quantity  } + ' USD'">Subtotal: 0 USD</div>
-            </div>
-
         </div>
 </div>
 
