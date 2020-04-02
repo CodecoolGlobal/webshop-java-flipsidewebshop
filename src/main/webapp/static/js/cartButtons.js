@@ -9,7 +9,7 @@ function main() {
             removeOneItemFromCart(event.target)
         }
         if (event.target.matches(".del-item")) {
-            removeAllInstancesOfItemFromCart(event.target)
+            removeInstancesOfItemFromCart(event.target)
         }
     });
 
@@ -58,7 +58,7 @@ function main() {
         let itemContainer = modal.querySelector(`[data-product-id="${id}"]`);
         let amount = itemContainer.querySelector(".amount").dataset.amount;
         if (amount <= 1) {
-            removeAllInstancesOfItemFromCart(button);
+            removeInstancesOfItemFromCart(button);
         } else {
             let data = {'id': id, 'amount': -1};
             //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, button, fetchError);
@@ -66,7 +66,7 @@ function main() {
         }
     }
 
-    function removeAllInstancesOfItemFromCart(button) {
+    function removeInstancesOfItemFromCart(button) {
         let id = Number(button.dataset.id);
         let data = {'id': id};
         fetchPostMethod('api/remove-item', data, removeItemLine, button, fetchError)
@@ -84,5 +84,12 @@ function removeItemLine(response, data) {
         let modal = document.querySelector('.modal-body');
         let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
         itemContainer.remove();
+        if (document.querySelector("[data-product-id]") == null){
+            putEmptyMessage(modal)
+        }
     }
+}
+
+function putEmptyMessage(target){
+    target.insertAdjacentHTML("afterbegin", `<p>Your cart is empty.</p>`);
 }
