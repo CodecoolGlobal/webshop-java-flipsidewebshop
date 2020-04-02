@@ -8,7 +8,11 @@ public class Cart {
     private List<Item> shoppingCart;
 
     public int getNumberOfProductsInCart() {
-        return shoppingCart.size();
+        int counter = 0;
+        for (Item cartElement : shoppingCart) {
+            counter += cartElement.getQuantity();
+        }
+        return counter;
     }
 
     public Cart(){
