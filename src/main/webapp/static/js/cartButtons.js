@@ -35,7 +35,7 @@ function main() {
         let modal = document.querySelector('.modal-body');
         console.log(response);
         if (response){
-            let newAmount = Number(button.dataset.amount) + Number(data.amount);
+            let newAmount = Number(button.dataset.amount) * Number(data.price);
             let parentNode = button.parentNode;
             let amountDiv = parentNode.querySelector(".amount");
             let controlButtons = parentNode.querySelectorAll(".item-control-button");
