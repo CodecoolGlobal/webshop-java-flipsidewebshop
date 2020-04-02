@@ -52,3 +52,7 @@
     height: 50px;
     display: flex;
 }
+
+#deletebutton {
+    padding-top: 9px;
+}
