@@ -23,15 +23,15 @@ function main() {
             .then((resp) => {
                 return resp.json()
             })
-            .then((data) => callback(data, content, button));
-            //.catch(errorCallback);
+            .then((data) => callback(data, content))
+            .catch(errorCallback);
     }
 
     function fetchError() {
         console.log("error");
     }
 
-    function rewriteAmountLine(response, data, button) { // I need the exact button!!!
+    function rewriteAmountLine(response, data) {
         console.log(response);
         if (response){
             let modal = document.querySelector('.modal-body');
@@ -53,7 +53,10 @@ function main() {
 
     function removeOneItemFromCart(button) {
         let id = Number(button.dataset.id);
-        let amount = Number(button.dataset.amount);
+
+        let modal = document.querySelector('.modal-body');
+        let itemContainer = modal.querySelector(`[data-product-id="${id}"]`);
+        let amount = itemContainer.querySelector(".amount").dataset.amount;
         if (amount <= 1) {
             removeAllInstancesOfItemFromCart(button);
         } else {
@@ -66,12 +69,20 @@ function main() {
     function removeAllInstancesOfItemFromCart(button) {
         let id = Number(button.dataset.id);
         let data = {'id': id};
-        fetchPostMethod('api/remove-item', data, addNewLineToModalBody, button, fetchError)
+        fetchPostMethod('api/remove-item', data, removeItemLine, button, fetchError)
         /*
         * Should remove one line from modal body instead of adding one*/
     }
 
     function emptyCart() {
         fetchPostMethod('api/empty-cart', {'id': 0}, addNewLineToModalBody, fetchError)
+    }
+}
+
+function removeItemLine(response, data) {
+    if (response) {
+        let modal = document.querySelector('.modal-body');
+        let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
+        itemContainer.remove();
     }
 }
