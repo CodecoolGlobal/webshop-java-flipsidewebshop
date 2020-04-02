@@ -8,7 +8,7 @@ function main() {
         if (event.target.matches(".minus-item")) {
             removeOneItemFromCart(event.target)
         }
-        if (event.target.matches(".del-item")) {
+        if (event.target.matches(".fa-trash-o")) {
             removeInstancesOfItemFromCart(event.target)
         }
     });
@@ -66,6 +66,13 @@ function main() {
             //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, button, fetchError);
             fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError);
         }
+    }
+    
+    function getUpdatedPriceLine(response, data, button) {
+        if (response) {
+
+        }
+
     }
 
     function removeInstancesOfItemFromCart(button) {

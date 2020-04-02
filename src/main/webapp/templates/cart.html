@@ -9,20 +9,28 @@
 <h1>Shopping cart</h1>
 <div th:fragment="modal-content" th:each="item : ${cart}">
 
-        <div class="itemwrapper" style="display:inline-flex" th:data-product-id="${item.product.id}" th:data-price="${item.product.price}" th:data-amount="${item.quantity}">
-            <div class="picture" style="display:inline-block;width:200px;height:200px">
+        <div class="itemwrapper" th:data-product-id="${item.product.id}" th:data-price="${item.product.price}" th:data-amount="${item.quantity}">
+            <div class="picture">
                 <img class="pic" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${item.product.id} + '.jpg'" alt=""/>
             </div>
-            <div class="infoaboutitem" style="display:flex;flex-direction: column">
+            <div class="infoaboutitem">
                 <div th:text="${item.product.name}">Product Name</div>
                 <div th:data-price="${item.product.price}" th:text="${item.product.price}">Price</div>
-                <div>
-                    <button name="minusitem" class="minus-item item-control-button" th:data-id="${item.product.id}" th:data-amount="${item.quantity}">Minus</button>
+                <div class="amount-button">
+                    <button name="minusitem" class="minus-item item-control-button" th:data-id="${item.product.id}"
+                            th:data-amount="${item.quantity}">-
+                    </button>
                     <div class="amount" th:data-amount="${item.quantity}" th:text="${item.quantity}">Quantity</div>
-                    <button name="plusitem" class="plus-item item-control-button"  th:data-id="${item.product.id}" th:data-amount="${item.quantity}">Plus</button>
-                    <button name="deleteitem" class="del-item item-control-button" th:data-id="${item.product.id}">Del</button>
+                    <button name="plusitem" class="plus-item item-control-button" th:data-id="${item.product.id}"
+                            th:data-amount="${item.quantity}">+
+                    </button>
                 </div>
+                <div>
+                    <button name="deleteitem" id="deletebutton" class="fa fa-trash-o" th:data-id="${item.product.id}">
+                    </button>
+                </div>
+                <div class="act-price">Actual Price: </div>
             </div>
             <div>
                 <div class="subtotal" th:text="'Subtotal: ' + ${#strings.substring(item.product.price, 0, #strings.length(item.product.price)-4) * item.quantity  } + ' USD'">Subtotal: 0 USD</div>
