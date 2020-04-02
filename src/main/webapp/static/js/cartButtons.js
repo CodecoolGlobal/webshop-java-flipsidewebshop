@@ -32,23 +32,21 @@ function main() {
     }
 
     function rewriteAmountLine(response, data, button) { // I need the exact button!!!
-        let modal = document.querySelector('.modal-body');
         console.log(response);
         if (response){
-            let newAmount = Number(button.dataset.amount) * Number(data.price);
-            let parentNode = button.parentNode;
-            let amountDiv = parentNode.querySelector(".amount");
-            let controlButtons = parentNode.querySelectorAll(".item-control-button");
-            for (let button of controlButtons) {
-                button.dataset.amount = String(newAmount);
-            }
-            amountDiv.textContent = String(newAmount);
+            let modal = document.querySelector('.modal-body');
+            let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
+            let oldAmount = itemContainer.querySelector(".amount").dataset.amount;
+
+            let newAmount = (parseInt(oldAmount) + parseInt(data.amount)).toString();
+
+            itemContainer.querySelector(".amount").dataset.amount = newAmount;
+            itemContainer.querySelector(".amount").innerHTML = newAmount;
         }
     }
 
     function addOneMoreItemToCart(button) {
-        let id = Number(button.dataset.id);
-        let data = {'id': id, 'amount': 1};
+        let data = {'id': button.dataset.id, 'amount': 1};
         //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError) // original version
         fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError)
     }
