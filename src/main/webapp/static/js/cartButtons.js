@@ -32,16 +32,18 @@ function main() {
     }
 
     function rewriteAmountLine(response, data) {
-        console.log(response);
         if (response){
             let modal = document.querySelector('.modal-body');
             let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
+            console.log(itemContainer);
             let oldAmount = itemContainer.querySelector(".amount").dataset.amount;
-
             let newAmount = (parseInt(oldAmount) + parseInt(data.amount)).toString();
 
+            itemContainer.dataset.amount = newAmount;
             itemContainer.querySelector(".amount").dataset.amount = newAmount;
             itemContainer.querySelector(".amount").innerHTML = newAmount;
+        } else {
+            console.log(response);
         }
     }
 

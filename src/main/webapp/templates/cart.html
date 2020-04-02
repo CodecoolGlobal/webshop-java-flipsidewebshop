@@ -9,7 +9,7 @@
 <h1>Shopping cart</h1>
 <div th:fragment="modal-content" th:each="item : ${cart}">
 
-        <div class="itemwrapper" style="display:inline-flex" th:data-product-id="${item.product.id}">
+        <div class="itemwrapper" style="display:inline-flex" th:data-product-id="${item.product.id}" th:data-price="${item.product.price}" th:data-amount="${item.quantity}">
             <div class="picture" style="display:inline-block;width:200px;height:200px">
                 <img class="pic" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${item.product.id} + '.jpg'" alt=""/>
@@ -24,6 +24,10 @@
                     <button name="deleteitem" class="del-item item-control-button" th:data-id="${item.product.id}">Del</button>
                 </div>
             </div>
+            <div>
+                <div class="subtotal" th:text="'Subtotal: ' + ${#strings.substring(item.product.price, 0, #strings.length(item.product.price)-4) * item.quantity  } + ' USD'">Subtotal: 0 USD</div>
+            </div>
+
         </div>
 </div>
 

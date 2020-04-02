@@ -39,11 +39,21 @@ function addNewLineToModalBody(response, data) {
 }
 
 
+function recalcSubtotal() {
+    let modal = document.querySelector('.modal-body');
+    let subtotalLine = modal.querySelector('.subtotal');
+    let subtotal = Number(modal.dataset.amount) * Number(modal.dataset.price);
+    subtotalLine.textContent = `Subtotal: ${subtotal} USD`;
+}
+
 function addNewAmountToExisting(target, addedAmount){
+    let modal = document.querySelector('.modal-body');
     let amountField = target.querySelector(".amount");
     let oldAmount = amountField.dataset.amount;
     amountField.dataset.amount = (parseInt(oldAmount) + parseInt(addedAmount)).toString();
     amountField.innerHTML = amountField.dataset.amount;
+    modal.dataset.amount = (parseInt(oldAmount) + parseInt(addedAmount)).toString();
+    recalcSubtotal();
 }
 
 function fetchError() {
@@ -73,7 +83,7 @@ function addOneItemToCart(addButton) {
 let template = {
     modal: (product) => {
         return `
-        <div class="itemwrapper" style="display:inline-flex" data-product-id="${product.id}">
+        <div class="itemwrapper" style="display:inline-flex" data-product-id="${product.id}" data-price="${product.price.slice(0, -4)}" data-amount="${product.amount}">
             <div class="picture" style="display:inline-block;width:200px;height:200px">
                 <img class="pic"
                      src='/static/img/product_${product.id}.jpg' alt=""/>
@@ -86,6 +96,9 @@ let template = {
                     <div class="amount" data-amount="${product.amount}">${product.amount}</div>
                     <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">Plus</button>
                     <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
+                </div>
+                <div>
+                    <div class="subtotal">Subtotal: ${product.amount * product.price.slice(0,-4)} USD</div>
                 </div>
             </div>
         </div>
