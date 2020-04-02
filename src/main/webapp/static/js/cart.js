@@ -22,6 +22,13 @@ function fetchPostMethod(url, content, callback, errorCallback) {
         .catch(errorCallback);
 }
 
+function recalcNumberOfItemsInCart(data) {
+    let placeForNumber = document.querySelector("#number-of-items-in-cart");
+    let currentNumberOfItemsInCart = Number(placeForNumber.dataset.productsNum);
+    placeForNumber.textContent = ` ${currentNumberOfItemsInCart + data.amount}`;
+    placeForNumber.dataset.productsNum = `${currentNumberOfItemsInCart + data.amount}`;
+}
+
 function addNewLineToModalBody(response, data) {
     if (response){
         let modal = document.querySelector('.modal-body');
@@ -34,7 +41,7 @@ function addNewLineToModalBody(response, data) {
         } else {
             addNewAmountToExisting(itemElement, data.amount)
         }
-
+        recalcNumberOfItemsInCart(data);
     }
 }
 

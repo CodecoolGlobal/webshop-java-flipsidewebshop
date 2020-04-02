@@ -41,6 +41,7 @@ function main() {
             itemContainer.querySelector(".amount").dataset.amount = newAmount;
             itemContainer.querySelector(".amount").innerHTML = newAmount;
             recalcSubtotal(data);
+            recalcNumberOfItemsInCart(data);
         }
     }
 
@@ -74,7 +75,11 @@ function main() {
 
     function removeInstancesOfItemFromCart(button) {
         let id = Number(button.dataset.id);
-        let data = {'id': id};
+        let modal = document.querySelector('.modal-body');
+        let itemContainer = modal.querySelector(`[data-product-id="${id}"]`);
+        let amount = itemContainer.querySelector(".amount").dataset.amount * -1;
+
+        let data = {'id': id, 'amount': amount};
         fetchPostMethod('api/remove-item', data, removeItemLine, button, fetchError)
         /*
         * Should remove one line from modal body instead of adding one*/
@@ -93,6 +98,7 @@ function removeItemLine(response, data) {
         if (document.querySelector("[data-product-id]") == null){
             putEmptyMessage(modal)
         }
+        recalcNumberOfItemsInCart(data);
     }
 }
 
@@ -108,4 +114,11 @@ function recalcSubtotal(data) {
     let subtotalAmount = Number(itemContainer.dataset.amount) * Number(itemContainer.dataset.price);
     subtotalLine.textContent = `Subtotal: ${Math.round(subtotalAmount*100)/100} USD`;
     subtotalLine.dataset.subtotal = subtotalAmount;
+}
+
+function recalcNumberOfItemsInCart(data) {
+    let placeForNumber = document.querySelector("#number-of-items-in-cart");
+    let currentNumberOfItemsInCart = Number(placeForNumber.dataset.productsNum);
+    placeForNumber.textContent = ` ${currentNumberOfItemsInCart + data.amount}`;
+    placeForNumber.dataset.productsNum = `${currentNumberOfItemsInCart + data.amount}`;
 }
