@@ -8,12 +8,28 @@
 
 <h1>Shopping cart</h1>
 <div th:fragment="modal-content">
-    <div class="modal" th:each="item : ${cart}">
+    <div th:each="item : ${cart}">
+
+        <div class="itemwrapper" style="display:inline-flex" th:data-product-id="${item.product.id}">
+            <div class="picture" style="display:inline-block;width:200px;height:200px">
+                <img class="pic" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${item.product.id} + '.jpg'" alt=""/>
+            </div>
+            <div class="infoaboutitem" style="display:flex;flex-direction: column">
+                <div th:text="${item.product.name}">Product Name</div>
+                <div th:data-price="${item.product.price}" th:text="${item.product.price}">Price</div>
+                <div>
+                    <button name="minusitem" class="minus-item item-control-button" th:data-id="${item.product.id}" th:data-amount="${item.quantity}">Minus</button>
+                    <div class="amount" th:data-amount="${item.quantity}" th:text="${item.quantity}">Quantity</div>
+                    <button name="plusitem" class="plus-item item-control-button"  th:data-id="${item.product.id}" th:data-amount="${item.quantity}">Plus</button>
+                    <button name="deleteitem" class="del-item item-control-button" th:data-id="${item.product.id}">Del</button>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-
 </div>
-</div>
+
 <div th:fragment="modal-empty">
     <p>Your cart is empty.</p>
 </div>
