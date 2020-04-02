@@ -73,7 +73,8 @@
     <span>Contact</span>
     <!-- Button trigger modal -->
     <button type="button" class="open-cart" data-toggle="modal" data-target="#cart">
-        <i class="fa fa-shopping-cart" id="number-of-items-in-cart" th:data-products-num="${numberOfProductsInCart}" th:text="' ' + ${numberOfProductsInCart}"></i>
+        <i class="fa fa-shopping-cart" id="number-of-items-in-cart" th:data-products-num="${numberOfProductsInCart}"
+           th:text="' ' + ${numberOfProductsInCart}"></i>
     </button>
 </div>
 
@@ -87,13 +88,15 @@
     <p class="all-product">See all products</p>
     <p class="dropdown-btn">Categories<i class="fa fa-caret-down"></i></p>
     <div class="category-sidebar">
-        <p class="categories" th:each="category : ${categories}" th:data-catid="${category.id}" th:text="${category.name}">Category
+        <p class="categories" th:each="category : ${categories}" th:data-catid="${category.id}"
+           th:text="${category.name}">Category
             Name
         </p>
     </div>
     <p class="dropdown">Suppliers<i class="fa fa-caret-down"></i></p>
     <div class="supplier-sidebar">
-        <p class="suppliers" th:each="supplier : ${suppliers}" th:data-suid="${supplier.id}" th:text="${supplier.name}">Supplier Name</p>
+        <p class="suppliers" th:each="supplier : ${suppliers}" th:data-suid="${supplier.id}" th:text="${supplier.name}">
+            Supplier Name</p>
     </div>
 </div>
 
@@ -102,32 +105,35 @@
         <strong class="category-title" th:text="${category.name}">Category Title</strong>
     </div>
 
-    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!products.getBy(category, supplier).isEmpty()}" th:data-supid="${supplier.id}">
+    <div class="supplier" th:each="supplier : ${suppliers}" th:if="${!products.getBy(category, supplier).isEmpty()}"
+         th:data-supid="${supplier.id}">
         <div class="card-sup" th:data-sid="${supplier.id}">
             <strong th:text="${supplier.name}">Supplier Name</strong>
         </div>
 
         <div class="products" th:each="prod : ${products.getAll()}"
              th:if="${category.getId() == prod.getProductCategory().getId()}">
-                    <div class="card product"  th:if="${supplier.getId() == prod.getSupplier().getId()}">
-                        <img class="images" src="http://placehold.it/400x250/000/fff"
-                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
-                        <div class="card-header">
-                            <h4 class="card-title" th:data-name="${prod.name}" th:text="${prod.name}">Product name</h4>
-                            <p class="card-text description"
-                               th:data-description="${prod.description}"
-                               th:text="${prod.description}"
-                            >Product description...
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-text price">
-                                <p class="lead" th:data-price="${prod.price}" th:text="${prod.getPrice()}">100 USD</p>
-                            </div>
-                            <div class="card-text cart-button" th:data-id="${prod.getId()}">
-                                <a class="btn btn-success">Add to cart</a>
-                            </div>
-                        </div>
+            <div class="card product" th:if="${supplier.getId() == prod.getSupplier().getId()}">
+                <img class="images" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                <div class="card-header">
+                    <h4 class="card-title" th:data-name="${prod.name}" th:text="${prod.name}">Product name</h4>
+                    <p class="card-text description"
+                       th:data-description="${prod.description}"
+                       th:text="${prod.description}"
+                    >Product description...
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="card-text price">
+                        <p class="lead" th:data-price="${prod.price}" th:text="${prod.getPrice()}">100 USD</p>
+                    </div>
+                    <div class="add-to-cart-content">
+                        <button class="card-text cart-button" th:data-id="${prod.getId()}">
+                            <a class="add-to-cart">ADD TO CART</a>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

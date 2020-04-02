@@ -87,10 +87,11 @@
 }
 
 #navbar {
-    position: absolute;
+    position: fixed;
     background-color: #333;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 #navbar a, span, button {
@@ -119,3 +120,26 @@
 }
 
 
+.lead:hover {
+    color: #818181;
+}
+
+.cart-button {
+    display: inline-block;
+    color: #111111;
+    text-align: center;
+    background-color: #818181;
+}
+
+.add-to-cart {
+    display: block;
+}
+
+.cart-button:hover {
+    color: white;
+    background-color: darkred;
+}
+
+.add-to-cart-content {
+    display: inline-block;
+}

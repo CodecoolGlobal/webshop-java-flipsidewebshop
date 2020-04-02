@@ -5,12 +5,21 @@
 
 .modal button {
     color: #111111;
+    border-style: outset;
+    display: block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    background: inherit;
+    height: fit-content;
+
 }
 
 .modal button:hover {
-    color: darkred;
+        color: darkred;
     background-color: #818181;
 }
+
 
 .amount {
     text-align: center;
@@ -55,4 +64,20 @@
 
 #deletebutton {
     padding-top: 9px;
+}
+
+.modal-title {
+    color: darkred;
+    font-size: small;
+}
+
+
+.modal-header .close {
+    text-decoration: #111111;
+    padding: 0rem;
+    margin: -1rem -1rem -1rem auto;
+}
+
+.close span {
+    color: black;
 }
