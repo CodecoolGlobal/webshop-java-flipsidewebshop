@@ -18,8 +18,8 @@ function fetchPostMethod(url, content, callback, errorCallback) {
         body: JSON.stringify({'id': content.id, 'amount': content.amount })
     })
         .then((resp) => {return resp.json()})
-        .then((data) => callback(data, content))
-        .catch(errorCallback);
+        .then((data) => callback(data, content));
+        //.catch(errorCallback);
 }
 
 function recalcNumberOfItemsInCart(data) {
@@ -39,28 +39,33 @@ function addNewLineToModalBody(response, data) {
         if (itemElement == null){
             modal.insertAdjacentHTML("beforeend", template.modal(data))
         } else {
-            addNewAmountToExisting(itemElement, data.amount)
+            addNewAmountToExisting(itemElement, data)
         }
         recalcNumberOfItemsInCart(data);
     }
 }
 
 
-function recalcSubtotal() {
+function recalcSubtotal(data) {
     let modal = document.querySelector('.modal-body');
     let subtotalLine = modal.querySelector('.subtotal');
-    let subtotal = Number(modal.dataset.amount) * Number(modal.dataset.price);
+    let itemElement = modal.querySelector(`[data-product-id="${data.id}"]`);
+
+    let subtotal = Number(modal.dataset.amount) * Number(itemElement.dataset.price);
     subtotalLine.textContent = `Subtotal: ${subtotal} USD`;
+
+
 }
 
-function addNewAmountToExisting(target, addedAmount){
+function addNewAmountToExisting(target, data){
+    let addedAmount = data.amount;
     let modal = document.querySelector('.modal-body');
     let amountField = target.querySelector(".amount");
     let oldAmount = amountField.dataset.amount;
     amountField.dataset.amount = (parseInt(oldAmount) + parseInt(addedAmount)).toString();
     amountField.innerHTML = amountField.dataset.amount;
     modal.dataset.amount = (parseInt(oldAmount) + parseInt(addedAmount)).toString();
-    recalcSubtotal();
+    recalcSubtotal(data);
 }
 
 function fetchError() {

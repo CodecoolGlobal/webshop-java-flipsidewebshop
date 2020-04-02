@@ -13,7 +13,7 @@ function main() {
         }
     });
 
-    function fetchPostMethod(url, content, callback, button, errorCallback) {
+    function fetchPostMethod2(url, content, callback, button, errorCallback) {
         fetch(url, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -40,7 +40,7 @@ function main() {
             itemContainer.dataset.amount = newAmount;
             itemContainer.querySelector(".amount").dataset.amount = newAmount;
             itemContainer.querySelector(".amount").innerHTML = newAmount;
-            recalcSubtotal(data);
+            recalcSubtotalForInCartItems(data);
             recalcNumberOfItemsInCart(data);
         }
     }
@@ -48,7 +48,7 @@ function main() {
     function addOneMoreItemToCart(button) {
         let data = {'id': button.dataset.id, 'amount': 1};
         //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, fetchError) // original version
-        fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError)
+        fetchPostMethod2('api/add-to-cart', data, rewriteAmountLine, button, fetchError)
     }
 
     function removeOneItemFromCart(button) {
@@ -62,7 +62,7 @@ function main() {
         } else {
             let data = {'id': id, 'amount': -1};
             //fetchPostMethod('api/add-to-cart', data, addNewLineToModalBody, button, fetchError);
-            fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError);
+            fetchPostMethod2('api/add-to-cart', data, rewriteAmountLine, button, fetchError);
         }
     }
     
@@ -80,13 +80,13 @@ function main() {
         let amount = itemContainer.querySelector(".amount").dataset.amount * -1;
 
         let data = {'id': id, 'amount': amount};
-        fetchPostMethod('api/remove-item', data, removeItemLine, button, fetchError)
+        fetchPostMethod2('api/remove-item', data, removeItemLine, button, fetchError)
         /*
         * Should remove one line from modal body instead of adding one*/
     }
 
     function emptyCart() {
-        fetchPostMethod('api/empty-cart', {'id': 0}, addNewLineToModalBody, fetchError)
+        fetchPostMethod2('api/empty-cart', {'id': 0}, addNewLineToModalBody, fetchError)
     }
 }
 
@@ -106,7 +106,7 @@ function putEmptyMessage(target){
     target.insertAdjacentHTML("afterbegin", `<p>Your cart is empty.</p>`);
 }
 
-function recalcSubtotal(data) {
+function recalcSubtotalForInCartItems(data) {
     let modal = document.querySelector('.modal-body');
     let itemContainer = modal.querySelector(`[data-product-id="${data.id}"]`);
 
