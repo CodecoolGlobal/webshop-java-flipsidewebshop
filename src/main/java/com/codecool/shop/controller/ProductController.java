@@ -28,8 +28,6 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
-    private Object ArrayList;
-    static Customer customer = new Customer();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +51,6 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("numberOfProductsInCart", cart.getNumberOfProductsInCart());
         context.setVariable("categories", productCategoryDataStore.getAll());
-
         context.setVariable("products", productDataStore);
         context.setVariable("suppliers", supplierDataStore.getAll());
         context.setVariable("cart", ((Cart) session.getAttribute("cart")).getShoppingCart());
