@@ -7,8 +7,7 @@
 <body>
 
 <h1>Shopping cart</h1>
-<div th:fragment="modal-content">
-    <div th:each="item : ${cart}">
+<div th:fragment="modal-content" th:each="item : ${cart}">
 
         <div class="itemwrapper" th:data-product-id="${item.product.id}">
             <div class="picture">
@@ -34,8 +33,6 @@
                 </div>
             </div>
         </div>
-
-    </div>
 </div>
 
 <div th:fragment="modal-empty">

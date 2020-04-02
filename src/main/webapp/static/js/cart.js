@@ -28,6 +28,9 @@ function addNewLineToModalBody(response, data) {
     console.log(response);
     if (response){
         let modal = document.querySelector('.modal-body');
+        if (modal.querySelector("p")){
+            modal.querySelector("p").remove()
+        }
         let itemElement = modal.querySelector(`[data-product-id="${data.id}"]`);
         if (itemElement == null){
             modal.insertAdjacentHTML("beforeend", template.modal(data))
