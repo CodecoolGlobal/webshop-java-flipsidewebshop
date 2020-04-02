@@ -65,6 +65,13 @@ function main() {
             fetchPostMethod('api/add-to-cart', data, rewriteAmountLine, button, fetchError);
         }
     }
+    
+    function getUpdatedPriceLine(response, data, button) {
+        if (response) {
+
+        }
+
+    }
 
     function removeAllInstancesOfItemFromCart(button) {
         let id = Number(button.dataset.id);

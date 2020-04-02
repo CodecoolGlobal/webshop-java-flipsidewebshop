@@ -1,6 +1,9 @@
 main();
 
 function main() {
+    let title = document.querySelector('.modal-title');
+    title.innerHTML = ``;
+    title.insertAdjacentHTML("beforeend", "Shopping Cart");
     let cartButtons = document.querySelectorAll(".cart-button");
     for (let cartButton of cartButtons) {
         addOneItemToCart(cartButton);
