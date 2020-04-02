@@ -78,8 +78,11 @@ let template = {
                     <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">-</button>
                     <div class="amount">${product.amount}</div>
                     <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
+                </div>
+                <div>
                     <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
                 </div>
+
             </div>
         </div>
         
