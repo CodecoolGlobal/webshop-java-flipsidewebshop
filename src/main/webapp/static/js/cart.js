@@ -70,11 +70,11 @@ let template = {
             </div>
             <div class="infoaboutitem" style="display:flex;flex-direction: column">
                 <div>${product.name}</div>
-                <div>${product.price}">Price</div>
-                <div>
-                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">Minus</button>
+                <div>Unit Price: ${product.price}</div>
+                <div style="display: flex">
+                    <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">-</button>
                     <div class="amount">${product.amount}</div>
-                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">Plus</button>
+                    <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
                     <button name="deleteitem" class="del-item item-control-button" data-id="${product.id}">Del</button>
                 </div>
             </div>
