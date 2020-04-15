@@ -37,4 +37,8 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     public List<ProductCategory> getAll() {
         return null;
     }
+
+    public int getProductCategoryId(String productCategoryName) {
+        return 1;
+    }
 }

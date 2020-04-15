@@ -32,9 +32,9 @@ public class ProductDaoJdbc implements ProductDao {
         productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
 
         String supplierName = product.getSupplier().getName();
-        int supplierId = 1; //suplierDaoJdbc.getSupplierId(supplierName);
+        int supplierId = supplierDaoJdbc.getSupplierId(supplierName);
         String productCategoryName = product.getProductCategory().getName();
-        int productCategoryId = 1; //productCategoryJdbc.getProductCategoryId(productCategoryName);
+        int productCategoryId = productCategoryDaoJdbc.getProductCategoryId(productCategoryName);
 
         String sql = "INSERT INTO product (supplier_id, name, description, price, default_currency, product_category)" +
                 " VALUES(?,?,?,?,?,?)";
@@ -56,7 +56,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public Product find(int id) {
         psqlConnection = PSQLConnection.getInstance();
-        String sql = "SELECT * FROM product WHERE product_id =?";
+        String sql = "SELECT * FROM product WHERE product_id=?";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,7 +75,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public void remove(int id) {
         psqlConnection = PSQLConnection.getInstance();
-        String sql ="DELETE FROM product WHERE product_id = ?";
+        String sql = "DELETE FROM product WHERE product_id=?";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -107,17 +107,64 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        List<Product> products = new ArrayList<>();
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product WHERE supplier_id=?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, supplier.getId());
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Product product = createNewProductFromSQLResult(resultSet);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        List<Product> products = new ArrayList<>();
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product WHERE product_category=?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, productCategory.getId());
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Product product = createNewProductFromSQLResult(resultSet);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory, Supplier supplier) {
-        return null;
+
+        List<Product> products = new ArrayList<>();
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product WHERE product_id=? AND supplier_id=?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, productCategory.getId());
+            pstmt.setInt(2, supplier.getId());
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Product product = createNewProductFromSQLResult(resultSet);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     private Product createNewProductFromSQLResult(ResultSet resultSet) throws SQLException {
@@ -131,8 +178,8 @@ public class ProductDaoJdbc implements ProductDao {
         String description = resultSet.getString("description");
         int productCategoryId = resultSet.getInt("product_category");
         int supplierId = resultSet.getInt("supplier_id");
-        ProductCategory productCategory; // = productCategoryJdbc.find(productCategoryId);
-        Supplier supplier; // = supplierDaoJdbc.find(supplierId);
+        ProductCategory productCategory = productCategoryDaoJdbc.find(productCategoryId);
+        Supplier supplier = supplierDaoJdbc.find(supplierId);
 
         return new Product(name, price, currencyString, description, productCategory, supplier);
     }
