@@ -12,8 +12,8 @@ import java.util.List;
 public class ProductDaoJdbc implements ProductDao {
     private PSQLConnection psqlConnection;
     private static ProductDaoJdbc instance = null;
-    // private SupplierDaoJdbc supplierDaoJdbc;
-    // private ProductCategoryDaoJdbc productCategoryDaoJdbc;
+    private SupplierDaoJdbc supplierDaoJdbc;
+    private ProductCategoryDaoJdbc productCategoryDaoJdbc;
 
     private ProductDaoJdbc() {
     }
@@ -28,8 +28,8 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public void add(Product product) {
         psqlConnection = PSQLConnection.getInstance();
-        // supplierDaoJdbc = SupplierDaoJdbc.getInstance();
-        // productCategoryJdbc = ProductCategoryJdbc.getInstance();
+        supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+        productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
 
         String supplierName = product.getSupplier().getName();
         int supplierId = 1; //suplierDaoJdbc.getSupplierId(supplierName);
@@ -121,8 +121,8 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     private Product createNewProductFromSQLResult(ResultSet resultSet) throws SQLException {
-        // supplierDaoJdbc = SupplierDaoJdbc.getInstance();
-        // productCategoryJdbc = ProductCategoryJdbc.getInstance();
+        supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+        productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
 
         resultSet.getString("name");
         String name = resultSet.getString("name");
