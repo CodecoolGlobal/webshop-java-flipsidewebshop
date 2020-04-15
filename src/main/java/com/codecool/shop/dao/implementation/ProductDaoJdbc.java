@@ -56,7 +56,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public Product find(int id) {
         psqlConnection = PSQLConnection.getInstance();
-        String sql = "SELECT * FROM product WHERE id =?";
+        String sql = "SELECT * FROM product WHERE product_id =?";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
