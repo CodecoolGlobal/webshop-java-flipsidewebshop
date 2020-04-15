@@ -1,14 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
@@ -38,9 +36,8 @@ public class ProductDaoJdbc implements ProductDao {
         String productCategoryName = product.getProductCategory().getName();
         int productCategoryId = 1; //productCategoryJdbc.getProductCategoryId(productCategoryName);
 
-
-
-        String sql = "INSERT INTO product (supplier_id, name, description, price, default_currency, product_category) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO product (supplier_id, name, description, price, default_currency, product_category)" +
+                " VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -52,23 +49,60 @@ public class ProductDaoJdbc implements ProductDao {
             pstmt.setInt(6, productCategoryId);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
     public Product find(int id) {
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product WHERE id =?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                Product product = createNewProductFromSQLResult(resultSet);
+                return product;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public void remove(int id) {
+        psqlConnection = PSQLConnection.getInstance();
+        String sql ="DELETE FROM product WHERE product_id = ?";
 
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Product> getAll() {
-        return null;
+        List<Product> products = new ArrayList<>();
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Product product = createNewProductFromSQLResult(resultSet);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
@@ -84,5 +118,22 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public List<Product> getBy(ProductCategory productCategory, Supplier supplier) {
         return null;
+    }
+
+    private Product createNewProductFromSQLResult(ResultSet resultSet) throws SQLException {
+        // supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+        // productCategoryJdbc = ProductCategoryJdbc.getInstance();
+
+        resultSet.getString("name");
+        String name = resultSet.getString("name");
+        float price = resultSet.getFloat("price");
+        String currencyString = resultSet.getString("default_currency");
+        String description = resultSet.getString("description");
+        int productCategoryId = resultSet.getInt("product_category");
+        int supplierId = resultSet.getInt("supplier_id");
+        ProductCategory productCategory; // = productCategoryJdbc.find(productCategoryId);
+        Supplier supplier; // = supplierDaoJdbc.find(supplierId);
+
+        return new Product(name, price, currencyString, description, productCategory, supplier);
     }
 }
