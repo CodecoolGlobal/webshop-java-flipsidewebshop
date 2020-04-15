@@ -29,19 +29,15 @@ public class PSQLConnection {
     }
 
     public Connection getConnection() {
-
-        if (connection == null) {
-            try {
-                String host = DATABASE;
-                String username = DB_USER;
-                String password = DB_PASSWORD;
-                connection = DriverManager.getConnection(host, username, password);
-            } catch (SQLException ex) {
-                Logger.getLogger(PSQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
-            }
+        try {
+            String host = DATABASE;
+            String username = DB_USER;
+            String password = DB_PASSWORD;
+            connection = DriverManager.getConnection(host, username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(PSQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-
         return connection;
     }
 
