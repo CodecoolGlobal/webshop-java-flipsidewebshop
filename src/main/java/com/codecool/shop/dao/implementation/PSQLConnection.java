@@ -1,4 +1,4 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.dao.implementation;
 
 import java.sql.Statement;
 import java.sql.Connection;
