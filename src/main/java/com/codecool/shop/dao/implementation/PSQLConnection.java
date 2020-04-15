@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class PSQLConnection {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/yourdatabasename"; // TODO: update
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/flipsideshop";
     private static final String DB_USER = "username"; // TODO: update
     private static final String DB_PASSWORD = "pswd"; // TODO: update
 
