@@ -32,9 +32,9 @@ public class ProductDaoJdbc implements ProductDao {
         productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
 
         String supplierName = product.getSupplier().getName();
-        int supplierId = 1; //suplierDaoJdbc.getSupplierId(supplierName);
+        int supplierId = supplierDaoJdbc.getSupplierId(supplierName);
         String productCategoryName = product.getProductCategory().getName();
-        int productCategoryId = 1; //productCategoryJdbc.getProductCategoryId(productCategoryName);
+        int productCategoryId = productCategoryDaoJdbc.getProductCategoryId(productCategoryName);
 
         String sql = "INSERT INTO product (supplier_id, name, description, price, default_currency, product_category)" +
                 " VALUES(?,?,?,?,?,?)";
@@ -131,8 +131,8 @@ public class ProductDaoJdbc implements ProductDao {
         String description = resultSet.getString("description");
         int productCategoryId = resultSet.getInt("product_category");
         int supplierId = resultSet.getInt("supplier_id");
-        ProductCategory productCategory; // = productCategoryJdbc.find(productCategoryId);
-        Supplier supplier; // = supplierDaoJdbc.find(supplierId);
+        ProductCategory productCategory = productCategoryDaoJdbc.find(productCategoryId);
+        Supplier supplier = supplierDaoJdbc.find(supplierId);
 
         return new Product(name, price, currencyString, description, productCategory, supplier);
     }

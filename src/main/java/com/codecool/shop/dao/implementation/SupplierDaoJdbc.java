@@ -38,4 +38,8 @@ public class SupplierDaoJdbc implements SupplierDao {
     public List<Supplier> getAll() {
         return null;
     }
+
+    public int getSupplierId(String supplierName) {
+        return 1;
+    }
 }
