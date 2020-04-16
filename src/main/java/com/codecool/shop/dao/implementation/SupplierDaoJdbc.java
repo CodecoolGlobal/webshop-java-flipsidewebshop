@@ -99,6 +99,7 @@ public class SupplierDaoJdbc implements SupplierDao {
      * @return Takes supplier name and returns the corresponding ID. If no such supplier name is present, it returns 0 as ID.
      */
     public int getSupplierId(String supplierName) {
+        int id = 1;
         psqlConnection = PSQLConnection.getInstance();
         String sql = "SELECT * FROM supplier WHERE name=?";
 
@@ -108,12 +109,13 @@ public class SupplierDaoJdbc implements SupplierDao {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()) {
                 Supplier supplier = createNewSupplierFromSQLResult(resultSet);
-                return supplier.getId();
+                id = supplier.getId();
+                return id;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return id;
 
     }
 

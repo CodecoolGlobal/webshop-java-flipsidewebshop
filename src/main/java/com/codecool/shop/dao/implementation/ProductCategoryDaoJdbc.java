@@ -86,6 +86,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
+                productCategory.setId(resultSet.getInt("category_id"));
                 productCategories.add(productCategory);
             }
         } catch (SQLException e) {
@@ -101,6 +102,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
      * If no such category name is present, it returns 0 as ID.
      */
     public int getProductCategoryId(String productCategoryName) {
+        int id = 1;
         psqlConnection = PSQLConnection.getInstance();
         String sql = "SELECT * FROM product_category WHERE name=?";
 
@@ -110,12 +112,13 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.next()) {
                 ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
-                return productCategory.getId();
+                id = productCategory.getId();
+                return id;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return id;
     }
 
     private ProductCategory createNewProductCategoryFromSQLResult(ResultSet resultSet) throws SQLException {
