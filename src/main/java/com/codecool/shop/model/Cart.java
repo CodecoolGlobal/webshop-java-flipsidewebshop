@@ -38,20 +38,20 @@ public class Cart {
     }
 
     public boolean inCart(Product product){
-        return shoppingCart.stream().anyMatch(item -> product.getId() == (item.getProduct().getId()));
+        return shoppingCart.stream().anyMatch(item -> item.getProduct().equals(product));
     }
 
     // TODO prevent possibility of negative quantities.
     private void updateItem(Product product, int quantity){
         Objects.requireNonNull(shoppingCart.stream()
-                .filter(item -> item.getProduct().getId() == (product.getId()))
+                .filter(item -> item.getProduct().equals(product))
                 .findFirst()
                 .orElse(null)
         ).setQuantity(quantity);
     }
 
     public void removeItem(Product product){
-        shoppingCart.removeIf(item -> item.getProduct().getId() == (product.getId()));
+        shoppingCart.removeIf(item -> item.getProduct().equals(product));
     }
 
     private void addItem(Product product, int quantity){
