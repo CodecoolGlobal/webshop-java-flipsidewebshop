@@ -20,30 +20,32 @@ public class Initializer implements ServletContextListener {
         ProductDao productDataStore = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
+
+        /* Used to initialize new SQL - once done, not needed anymore
         //setting up a new supplier
         Supplier DGK = new Supplier("DGK", "Skateboards");
-        //supplierDataStore.add(DGK);
+        supplierDataStore.add(DGK);
         DGK.setId(1);
         Supplier enjoi = new Supplier("Enjoi", "Skateboards");
-        //supplierDataStore.add(enjoi);
+        supplierDataStore.add(enjoi);
         enjoi.setId(2);
         Supplier rodriguez = new Supplier("Rodriduez", "Skateboards");
-        //supplierDataStore.add(rodriguez);
+        supplierDataStore.add(rodriguez);
         rodriguez.setId(3);
         // boards - new stuff
         Supplier burton = new Supplier("Burton", "Snowboards");
-        //supplierDataStore.add(burton);
+        supplierDataStore.add(burton);
         burton.setId(4);
         Supplier jones = new Supplier("Jones", "Snowboards");
-        //supplierDataStore.add(jones);
+        supplierDataStore.add(jones);
         jones.setId(5);
 
         //setting up a new product category
         ProductCategory skateboard = new ProductCategory("Skateboard", "Summer", "A short narrow board with two small wheels fixed to the bottom of either end, on which a person can ride pushing one foot against the ground.");
-        //productCategoryDataStore.add(skateboard);
+        productCategoryDataStore.add(skateboard);
         skateboard.setId(1);
         ProductCategory snowboard = new ProductCategory("Snowboard", "Winter", "A piece of fiberglass, P-TEX, wood compound that makes you surf the slopes in winter.");
-        //productCategoryDataStore.add(snowboard);
+        productCategoryDataStore.add(snowboard);
         snowboard.setId(2);
 
         //setting up products and printing it
@@ -59,7 +61,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Custom", 300, "USD", "All times classic one-quiver all-mountain camber board that fits every rider.", snowboard, burton));
         productDataStore.add(new Product("Flagship", 354, "USD", "This snowboard was created for exactly one reason: to set new freeride standards!", snowboard, jones));
         productDataStore.add(new Product("Dream Catcher", 287, "USD", "This board is designed to shred the entire mountain in the most playful way possible.", snowboard, jones));
-        System.out.println(productCategoryDataStore.getAll());
-        System.out.println(supplierDataStore.getAll());
+        */
     }
 }
