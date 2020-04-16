@@ -61,7 +61,6 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     }
 
 
-
     @Override
     public void remove(int id) {
         psqlConnection = PSQLConnection.getInstance();
@@ -96,7 +95,21 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     }
 
     public int getProductCategoryId(String productCategoryName) {
-        return 1;
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product_category WHERE name=?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, productCategoryName);
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
+                return productCategory.getId();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     private ProductCategory createNewProductCategoryFromSQLResult(ResultSet resultSet) throws SQLException {
