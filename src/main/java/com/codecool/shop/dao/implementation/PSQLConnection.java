@@ -13,7 +13,7 @@ public class PSQLConnection {
     private static final String DB_USER = "username"; // TODO: update
     private static final String DB_PASSWORD = "pswd"; // TODO: update
 
-    private static PSQLConnection dbIsntance;
+    private static PSQLConnection dbInstance;
     private static Connection connection;
     private static Statement stmt;
 
@@ -22,10 +22,10 @@ public class PSQLConnection {
     }
 
     public static PSQLConnection getInstance() {
-        if (dbIsntance == null) {
-            dbIsntance = new PSQLConnection();
+        if (dbInstance == null) {
+            dbInstance = new PSQLConnection();
         }
-        return dbIsntance;
+        return dbInstance;
     }
 
     public Connection getConnection() {
