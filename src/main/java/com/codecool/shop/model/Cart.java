@@ -51,7 +51,7 @@ public class Cart {
     }
 
     public void removeItem(Product product){
-        shoppingCart.removeIf(item -> item.getProduct().equals(product));
+        shoppingCart.removeIf(item -> item.getProduct().getId() == (product.getId()));
     }
 
     private void addItem(Product product, int quantity){
