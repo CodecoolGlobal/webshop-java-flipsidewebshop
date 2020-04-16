@@ -4,6 +4,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.controller.json.requestRemoveContainer;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Customer;
@@ -33,7 +34,7 @@ public class APIRemoveAllInstancesOfOneItemType extends HttpServlet {
         /* method body*/
         HttpSession session = request.getSession(false);
         Cart cart = (Cart) session.getAttribute("cart");
-        ProductDao allProducts = ProductDaoMem.getInstance();
+        ProductDao allProducts = ProductDaoJdbc.getInstance();
         Product currentProduct = allProducts.find(id);
         cart.removeItem(currentProduct);
         //customer.removeItemFromCart(currentProduct);

@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -30,7 +31,7 @@ public class APIaddToCart extends HttpServlet {
 
         int id = Integer.parseInt(requestIdContainer.getId());
         int amount = Integer.parseInt(requestIdContainer.getAmount());
-        ProductDao allProducts = ProductDaoMem.getInstance();
+        ProductDao allProducts = ProductDaoJdbc.getInstance();
         Product currentProduct = allProducts.find(id);
         boolean successOfAdd = cart.update(currentProduct, amount);
 
