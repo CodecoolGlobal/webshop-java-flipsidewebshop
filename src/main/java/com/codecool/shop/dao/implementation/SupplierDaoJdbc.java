@@ -44,7 +44,7 @@ public class SupplierDaoJdbc implements SupplierDao {
     public Supplier find(int id) {
 
         psqlConnection = PSQLConnection.getInstance();
-        String sql = "SELECT * FROM product_category WHERE category_id=?";
+        String sql = "SELECT * FROM supplier WHERE supplier_id=?";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -147,10 +147,11 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory, Supplier supplier) {
+        System.out.println("new query");
 
         List<Product> products = new ArrayList<>();
         psqlConnection = PSQLConnection.getInstance();
-        String sql = "SELECT * FROM product WHERE product_id=? AND supplier_id=?";
+        String sql = "SELECT * FROM product WHERE product_category=? AND supplier_id=?";
 
         try (Connection conn = psqlConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -164,6 +165,7 @@ public class ProductDaoJdbc implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(products.toString());
         return products;
     }
 
@@ -171,7 +173,6 @@ public class ProductDaoJdbc implements ProductDao {
         supplierDaoJdbc = SupplierDaoJdbc.getInstance();
         productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
 
-        resultSet.getString("name");
         String name = resultSet.getString("name");
         float price = resultSet.getFloat("price");
         String currencyString = resultSet.getString("default_currency");
@@ -181,6 +182,8 @@ public class ProductDaoJdbc implements ProductDao {
         ProductCategory productCategory = productCategoryDaoJdbc.find(productCategoryId);
         Supplier supplier = supplierDaoJdbc.find(supplierId);
 
-        return new Product(name, price, currencyString, description, productCategory, supplier);
+        Product newProduct = new Product(name, price, currencyString, description, productCategory, supplier);
+        newProduct.setId(resultSet.getInt("product_id"));
+        return newProduct;
     }
 }
