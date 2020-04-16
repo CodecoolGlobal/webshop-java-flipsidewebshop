@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
@@ -77,7 +78,21 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public List<ProductCategory> getAll() {
-        return null;
+        List<ProductCategory> productCategories = new ArrayList<>();
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM product_category";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
+                productCategories.add(productCategory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productCategories;
     }
 
     public int getProductCategoryId(String productCategoryName) {
