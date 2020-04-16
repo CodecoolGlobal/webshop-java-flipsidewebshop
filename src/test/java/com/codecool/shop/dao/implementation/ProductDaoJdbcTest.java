@@ -16,6 +16,7 @@ class ProductDaoJdbcTest {
     @Test
     void testIsProductAdded() {
         Supplier DGK = new Supplier("DGK", "Skateboards"); // should add to SQL!
+        DGK.setId(63);
 
         ProductCategory skateboard = new ProductCategory("Skateboard", "Summer",
                 "A short narrow board with two small wheels fixed to the bottom of either end, " +
