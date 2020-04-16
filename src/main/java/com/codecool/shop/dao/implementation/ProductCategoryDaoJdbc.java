@@ -122,10 +122,13 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     }
 
     private ProductCategory createNewProductCategoryFromSQLResult(ResultSet resultSet) throws SQLException {
-        return new ProductCategory(
+        ProductCategory productCategory = new ProductCategory(
                 resultSet.getString("name"),
                 resultSet.getString("department"),
                 resultSet.getString("description")
         );
+
+        productCategory.setId(resultSet.getInt("category_id"));
+        return productCategory;
     }
 }
