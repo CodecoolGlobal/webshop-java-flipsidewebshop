@@ -38,13 +38,13 @@ public class Cart {
     }
 
     public boolean inCart(Product product){
-        return shoppingCart.stream().anyMatch(item -> product.equals(item.getProduct()));
+        return shoppingCart.stream().anyMatch(item -> product.getId() == (item.getProduct().getId()));
     }
 
     // TODO prevent possibility of negative quantities.
     private void updateItem(Product product, int quantity){
         Objects.requireNonNull(shoppingCart.stream()
-                .filter(item -> item.getProduct().equals(product))
+                .filter(item -> item.getProduct().getId() == (product.getId()))
                 .findFirst()
                 .orElse(null)
         ).setQuantity(quantity);
