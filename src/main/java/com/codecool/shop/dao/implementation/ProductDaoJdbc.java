@@ -147,7 +147,6 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory, Supplier supplier) {
-        System.out.println("new query");
 
         List<Product> products = new ArrayList<>();
         psqlConnection = PSQLConnection.getInstance();
@@ -165,7 +164,6 @@ public class ProductDaoJdbc implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(products.toString());
         return products;
     }
 
