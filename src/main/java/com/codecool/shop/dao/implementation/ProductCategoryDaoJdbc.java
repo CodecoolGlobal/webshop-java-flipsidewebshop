@@ -94,6 +94,12 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         return productCategories;
     }
 
+    /**
+     *
+     * @param productCategoryName
+     * @return Takes category name and returns the corresponding ID.
+     * If no such category name is present, it returns 0 as ID.
+     */
     public int getProductCategoryId(String productCategoryName) {
         psqlConnection = PSQLConnection.getInstance();
         String sql = "SELECT * FROM product_category WHERE name=?";
@@ -102,7 +108,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, productCategoryName);
             ResultSet resultSet = pstmt.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
                 return productCategory.getId();
             }
