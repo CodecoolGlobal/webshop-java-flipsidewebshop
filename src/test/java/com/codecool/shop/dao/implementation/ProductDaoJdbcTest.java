@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductDaoJdbcTest {
 
-    @Test
+    /*@Test
     void testIsProductAdded() {
         Supplier DGK = new Supplier("DGK", "Skateboards"); // should add to SQL!
         DGK.setId(63);
@@ -39,7 +39,7 @@ class ProductDaoJdbcTest {
         }
 
 
-    }
+    }*/
 
 
 }
