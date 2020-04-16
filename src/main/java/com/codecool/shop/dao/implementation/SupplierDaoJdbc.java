@@ -91,11 +91,30 @@ public class SupplierDaoJdbc implements SupplierDao {
             e.printStackTrace();
         }
         return suppliers;
-
     }
 
+    /**
+     *
+     * @param supplierName
+     * @return Takes supplier name and returns the corresponding ID. If no such supplier name is present, it returns 0 as ID.
+     */
     public int getSupplierId(String supplierName) {
-        return 1;
+        psqlConnection = PSQLConnection.getInstance();
+        String sql = "SELECT * FROM supplier WHERE name=?";
+
+        try (Connection conn = psqlConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, supplierName);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                Supplier supplier = createNewSupplierFromSQLResult(resultSet);
+                return supplier.getId();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+
     }
 
     private Supplier createNewSupplierFromSQLResult(ResultSet resultSet) throws SQLException {
