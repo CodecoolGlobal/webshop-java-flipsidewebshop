@@ -82,7 +82,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         String sql = "SELECT * FROM product_category";
 
         try (Connection conn = psqlConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = createNewProductCategoryFromSQLResult(resultSet);
