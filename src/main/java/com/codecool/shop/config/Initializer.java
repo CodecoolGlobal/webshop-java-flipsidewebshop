@@ -21,7 +21,8 @@ public class Initializer implements ServletContextListener {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
 
-        /* Used to initialize new SQL - once done, not needed anymore
+        /*
+        //Used to initialize new SQL - once done, not needed anymore
         //setting up a new supplier
         Supplier DGK = new Supplier("DGK", "Skateboards");
         supplierDataStore.add(DGK);
