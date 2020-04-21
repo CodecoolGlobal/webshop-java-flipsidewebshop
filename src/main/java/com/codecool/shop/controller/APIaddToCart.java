@@ -43,4 +43,10 @@ public class APIaddToCart extends HttpServlet {
         out.print(JSONrepsonse);
         out.flush();
     }
+
+    @Override
+    public void init() throws ServletException {
+        System.getenv("username");
+        System.getenv("pswd");
+    }
 }
