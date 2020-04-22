@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class APIaddToCart extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         HttpSession session = request.getSession(false);
         Cart cart = (Cart) session.getAttribute("cart");
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
@@ -44,9 +44,4 @@ public class APIaddToCart extends HttpServlet {
         out.flush();
     }
 
-    @Override
-    public void init() throws ServletException {
-        System.getenv("username");
-        System.getenv("pswd");
-    }
 }

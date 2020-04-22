@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class PSQLConnection {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/flipsideshop";
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/";
 //    private static final String DB_USER = "username"; // TODO: update
 //    private static final String DB_PASSWORD = "pswd"; // TODO: update
 
@@ -30,10 +30,10 @@ public class PSQLConnection {
 
     public Connection getConnection() {
         try {
-            String host = DATABASE;
-//            String username = DB_USER;
-//            String password = DB_PASSWORD;
-            connection = DriverManager.getConnection(host, System.getenv("username"), System.getenv("pswd"));
+            String host = DATABASE + System.getenv("DB_NAME");
+            String username = System.getenv("DB_USER");
+            String password = System.getenv("DB_PWD");
+            connection = DriverManager.getConnection(host, username, password);
         } catch (SQLException ex) {
             Logger.getLogger(PSQLConnection.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -43,7 +43,7 @@ public class PSQLConnection {
 
     private void executeQuery(String query) {
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
+             Statement statement = connection.createStatement()
         ){
             statement.execute(query);
 
