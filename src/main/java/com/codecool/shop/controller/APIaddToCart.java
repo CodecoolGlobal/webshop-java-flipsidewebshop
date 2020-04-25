@@ -25,6 +25,11 @@ public class APIaddToCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        if (session == null) {
+            resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            resp.getWriter().write("No session cookie present.");
+            return;
+        }
         Cart cart = (Cart) session.getAttribute("cart");
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         requestIdContainer requestIdContainer = new Gson().fromJson(param, requestIdContainer.class);
