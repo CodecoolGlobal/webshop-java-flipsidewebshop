@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class APIaddToCart extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
             resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
@@ -48,4 +48,5 @@ public class APIaddToCart extends HttpServlet {
         out.print(JSONrepsonse);
         out.flush();
     }
+
 }
