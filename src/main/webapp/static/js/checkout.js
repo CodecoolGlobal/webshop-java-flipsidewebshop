@@ -42,10 +42,11 @@ function askInput(placeForNumber) {
                     <label for="shipaddress">Shipping Address: </label>
                     <input type="text" name="shipaddress" required>
                 </div>
-                <div>    
+                <div>
                     <input type="submit" value="PAYMENT">
                 </div>
                 </form>
+                <a href="/"><input type="submit" value="CONTINUE SHOPPING"></a>
             `
     main.insertAdjacentHTML("beforeend", totalCart);
 }

@@ -73,5 +73,4 @@ public class APIupdateCart extends HttpServlet {
             return false;
         }
     }
-
 }
