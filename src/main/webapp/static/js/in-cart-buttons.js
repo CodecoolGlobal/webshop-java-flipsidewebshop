@@ -99,26 +99,31 @@ function main() {
         target.innerHTML = `
         <input type="number" class="new-number" value="${currentAmount}"></input>
         `;
-        
-        document.querySelector(".modal-body").addEventListener("click", (event) => {
-            let newAmount = Number(document.querySelector(".new-number").value);
-            if (newAmount === currentAmount) {
-                target.innerHTML = currentAmount;
-            } else if ((newAmount) < 1) {
-                removeInstancesOfItemFromCart(document.querySelector(".input"));
-            } else {
-                let difference = currentAmount - newAmount;
-                if (difference > 0) {
-                    for (let i = 0; i < difference; i++) {
-                        addOneMoreItemToCart(document.querySelector(".input"));
+
+        document.querySelector(".input").addEventListener("keyup", (event) => {
+            let keykode = event.keyCode;
+            switch (keykode) {
+                case 13:
+                    let newAmount = Number(document.querySelector(".new-number").value);
+                    if (newAmount === currentAmount) {
+                        target.innerHTML = currentAmount;
+                    } else if ((newAmount) < 1) {
+                        removeInstancesOfItemFromCart(document.querySelector(".input"));
+                    } else {
+                        let difference = currentAmount - newAmount;
+                        if (difference > 0) {
+                            for (let i = 0; i < difference; i++) {
+                                addOneMoreItemToCart(document.querySelector(".input"));
+                            }
+                        } else {
+                            // ezt még belerakom
+                            for (let i = 1; i < Math.abs(difference)+1; i++) {
+                                removeOneItemFromCart(document.querySelector(".input"));
+                            }
+                        }
                     }
-                } else {
-                    // ezt még belerakom
-                    for (let i = 1; i < difference+1; i++) {
-                        removeOneItemFromCart(document.querySelector(".input"));
-                    }
-                }
             }
+
         })
 
 
