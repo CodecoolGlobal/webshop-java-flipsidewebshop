@@ -6,8 +6,8 @@ ALTER TABLE IF EXISTS Cart DROP CONSTRAINT IF EXISTS fk_product_id;
 ALTER TABLE IF EXISTS Contact_info DROP CONSTRAINT IF EXISTS fk_user_id;
 ALTER TABLE IF EXISTS Address DROP CONSTRAINT IF EXISTS fk_user_id;
 ALTER TABLE IF EXISTS Orders DROP CONSTRAINT IF EXISTS fk_user_id;
-ALTER TABLE IF EXISTS Ordered_items DROP CONSTRAINT IF EXISTS ordered_items_order_id_fkey;
-ALTER TABLE IF EXISTS Ordered_items DROP CONSTRAINT IF EXISTS ordered_items_product_id_fkey;
+ALTER TABLE IF EXISTS Ordered_items DROP CONSTRAINT IF EXISTS fk_order_id; --ordered_items_order_id_fkey;
+ALTER TABLE IF EXISTS Ordered_items DROP CONSTRAINT IF EXISTS fk_product_id; --ordered_items_product_id_fkey;
 
 
 
@@ -103,9 +103,11 @@ CREATE TABLE Orders (
 
 DROP TABLE IF EXISTS Ordered_items;
 CREATE TABLE Ordered_items (
-  order_id integer REFERENCES Orders ON DELETE CASCADE,
-  product_id integer REFERENCES Product ON DELETE RESTRICT,
+  ordered_items_id serial PRIMARY KEY,
+  order_id integer,
+  product_id integer,
   quantity integer,
-  PRIMARY KEY (order_id, product_id)
+  CONSTRAINT fk_order_id FOREIGN KEY (order_id) REFERENCES Orders (order_id) ON DELETE CASCADE,
+  CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 );
 
