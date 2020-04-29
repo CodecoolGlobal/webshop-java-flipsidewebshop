@@ -100,7 +100,7 @@ let template = {
                 <div data-price="${product.price}">Unit Price: ${product.price}</div>
                 <div class="amount-button">
                     <button name="minusitem" class="minus-item item-control-button" data-id="${product.id}" data-amount="${product.amount}">-</button>
-                    <div class="amount" data-amount="${product.amount}">${product.amount}</div>
+                    <div class="amount input" data-id="${product.id}" data-amount="${product.amount}">${product.amount}</div>
                     <button name="plusitem" class="plus-item item-control-button"  data-id="${product.id}" data-amount="${product.amount}">+</button>
                 </div>
                 <div>

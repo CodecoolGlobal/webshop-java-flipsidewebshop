@@ -11,6 +11,9 @@ function main() {
         if (event.target.matches(".fa-trash-o")) {
             removeInstancesOfItemFromCart(event.target)
         }
+        if (event.target.matches(".input")) {
+            inputNewAmount(event.target)
+        }
     });
 
     function fetchPostMethod2(url, content, callback, button, errorCallback) {
@@ -26,8 +29,8 @@ function main() {
             .catch(errorCallback);
     }
 
-    function fetchError() {
-        console.log("error");
+    function fetchError(e) {
+        console.log(e);
     }
 
     function rewriteAmountLine(response, data) {
@@ -87,6 +90,40 @@ function main() {
 
     function emptyCart() {
         fetchPostMethod2('api/empty-cart', {'id': 0}, addNewLineToModalBody, fetchError)
+    }
+
+    function inputNewAmount(target) {
+        let id = Number(target.dataset.id);
+        let currentAmount = Number(target.dataset.amount);
+
+        target.innerHTML = `
+        <input type="number" class="new-number" value="${currentAmount}"></input>
+        `;
+        
+        document.querySelector(".modal-body").addEventListener("click", (event) => {
+            let newAmount = Number(document.querySelector(".new-number").value);
+            if (newAmount === currentAmount) {
+                target.innerHTML = currentAmount;
+            } else if ((newAmount) < 1) {
+                removeInstancesOfItemFromCart(document.querySelector(".input"));
+            } else {
+                let difference = currentAmount - newAmount;
+                if (difference > 0) {
+                    for (let i = 0; i < difference; i++) {
+                        addOneMoreItemToCart(document.querySelector(".input"));
+                    }
+                } else {
+                    // ezt még belerakom
+                    for (let i = 1; i < difference+1; i++) {
+                        removeOneItemFromCart(document.querySelector(".input"));
+                    }
+                }
+            }
+        })
+
+
+
+
     }
 }
 

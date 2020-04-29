@@ -21,7 +21,7 @@
                     <button name="minusitem" class="minus-item item-control-button" th:data-id="${item.product.id}"
                             th:data-amount="${item.quantity}">-
                     </button>
-                    <div class="amount" th:data-amount="${item.quantity}" th:text="${item.quantity}">Quantity</div>
+                    <div class="amount input" th:data-id="${item.product.id}" th:data-amount="${item.quantity}" th:text="${item.quantity}">Quantity</div>
                     <button name="plusitem" class="plus-item item-control-button" th:data-id="${item.product.id}"
                             th:data-amount="${item.quantity}">+
                     </button>
