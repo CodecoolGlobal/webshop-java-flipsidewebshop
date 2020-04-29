@@ -21,7 +21,7 @@ function askInput(placeForNumber) {
                 <p>Total price: </p>
             </div>
             <div class="questions">
-                <form class="inputs">
+                <form class="inputs" method="POST" action="/api/reg-order">
                 <div>
                     <label for="name">Name: </label>
                     <input type="text" name="name" required>
