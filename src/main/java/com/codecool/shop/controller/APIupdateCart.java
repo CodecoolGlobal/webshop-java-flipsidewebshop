@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Customer;
 import com.codecool.shop.model.Item;
@@ -27,7 +28,7 @@ public class APIupdateCart extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         String operation = request.getParameter("operation");
 
-        ProductDao allProducts = ProductDaoMem.getInstance();
+        ProductDao allProducts = ProductDaoJdbc.getInstance();
 
         Customer customer = new Customer(); // TODO: get existing customer instance!
         List<Item> itemsInCart = customer.getcartItems();
@@ -72,5 +73,4 @@ public class APIupdateCart extends HttpServlet {
             return false;
         }
     }
-
 }

@@ -38,7 +38,7 @@ public class Cart {
     }
 
     public boolean inCart(Product product){
-        return shoppingCart.stream().anyMatch(item -> product.equals(item.getProduct()));
+        return shoppingCart.stream().anyMatch(item -> item.getProduct().equals(product));
     }
 
     // TODO prevent possibility of negative quantities.

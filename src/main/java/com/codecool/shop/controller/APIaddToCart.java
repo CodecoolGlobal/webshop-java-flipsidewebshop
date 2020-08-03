@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.json.requestIdContainer;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -22,15 +23,20 @@ import java.util.stream.Collectors;
 public class APIaddToCart extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws IOException {
         HttpSession session = request.getSession(false);
+        if (session == null) {
+            resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            resp.getWriter().write("No session cookie present.");
+            return;
+        }
         Cart cart = (Cart) session.getAttribute("cart");
         String param = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         requestIdContainer requestIdContainer = new Gson().fromJson(param, requestIdContainer.class);
 
         int id = Integer.parseInt(requestIdContainer.getId());
         int amount = Integer.parseInt(requestIdContainer.getAmount());
-        ProductDao allProducts = ProductDaoMem.getInstance();
+        ProductDao allProducts = ProductDaoJdbc.getInstance();
         Product currentProduct = allProducts.find(id);
         boolean successOfAdd = cart.update(currentProduct, amount);
 
@@ -42,4 +48,5 @@ public class APIaddToCart extends HttpServlet {
         out.print(JSONrepsonse);
         out.flush();
     }
+
 }
